@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryad Senhadji | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Cursor glow effect -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Particle background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-bracket">&lt;</span>RS<span class="logo-bracket">/&gt;</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Accueil</a></li>
+                <li><a href="#about" class="nav-link">A propos</a></li>
+                <li><a href="#experience" class="nav-link">Exp&eacute;rience</a></li>
+                <li><a href="#education" class="nav-link">Formation</a></li>
+                <li><a href="#skills" class="nav-link">Comp&eacute;tences</a></li>
+                <li><a href="#projects" class="nav-link">Projets</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="https://github.com/dayr20" target="_blank" class="nav-social-icon" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://gitlab.com/Senry" target="_blank" class="nav-social-icon" aria-label="GitLab">
+                    <i class="fab fa-gitlab"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ryad-senhadji-77ab50255/" target="_blank" class="nav-social-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-links">
+            <li><a href="#home" class="mobile-link">Accueil</a></li>
+            <li><a href="#about" class="mobile-link">A propos</a></li>
+            <li><a href="#experience" class="mobile-link">Exp&eacute;rience</a></li>
+            <li><a href="#education" class="mobile-link">Formation</a></li>
+            <li><a href="#skills" class="mobile-link">Comp&eacute;tences</a></li>
+            <li><a href="#projects" class="mobile-link">Projets</a></li>
+            <li><a href="#contact" class="mobile-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-greeting animate-slide-up">
+                    <span class="greeting-wave">👋</span> Bonjour, je suis
+                </p>
+                <h1 class="hero-name animate-slide-up delay-1">
+                    Ryad <span class="text-gradient">Senhadji</span>
+                </h1>
+                <div class="hero-title-wrapper animate-slide-up delay-2">
+                    <span class="hero-title-prefix">Je suis </span>
+                    <span class="typewriter" id="typewriter"></span>
+                    <span class="typewriter-cursor">|</span>
+                </div>
+                <p class="hero-description animate-slide-up delay-3">
+                    Passionn&eacute; par le d&eacute;veloppement et la technologie.
+                    Je cr&eacute;e des solutions innovantes et des exp&eacute;riences num&eacute;riques modernes.
+                </p>
+                <div class="hero-cta animate-slide-up delay-4">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>Voir mes projets</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="CV_Ryad_Senhadji.pdf" download class="btn btn-outline">
+                        <span>T&eacute;l&eacute;charger CV</span>
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+                <div class="hero-stats animate-slide-up delay-5">
+                    <div class="stat">
+                        <span class="stat-number" data-count="9">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Projets</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="20">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Technologies</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <i class="fab fa-github stat-icon"></i>
+                        <span class="stat-label">Open Source</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual animate-fade-in delay-2">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="code-title">portfolio.ts</span>
+                    </div>
+                    <pre class="code-body"><code><span class="code-keyword">const</span> <span class="code-var">developer</span> = {
+  <span class="code-prop">name</span>: <span class="code-string">"Ryad Senhadji"</span>,
+  <span class="code-prop">role</span>: <span class="code-string">"Full Stack Dev"</span>,
+  <span class="code-prop">skills</span>: [
+    <span class="code-string">"Java / Spring"</span>,
+    <span class="code-string">"React / TS"</span>,
+    <span class="code-string">"PHP / Symfony"</span>,
+    <span class="code-string">"C# / .NET"</span>,
+    <span class="code-string">"Node / Express"</span>,
+  ],
+  <span class="code-prop">db</span>: [<span class="code-string">"PostgreSQL"</span>, <span class="code-string">"MongoDB"</span>],
+  <span class="code-prop">available</span>: <span class="code-bool">true</span>,
+  <span class="code-method">sayHello</span>() {
+    <span class="code-keyword">return</span> <span class="code-string">"Let's build!"</span> 🚀
+  }
+};</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="mouse-wheel"></div>
+            </div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="section-number">01.</span> A propos de moi
+            </h2>
+            <div class="about-grid">
+                <div class="about-image-container">
+                    <div class="about-image">
+                        <img src="https://avatars.githubusercontent.com/u/115942138?v=4" alt="Ryad Senhadji" loading="lazy">
+                        <div class="about-image-border"></div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>
+                        Salut ! Je suis <strong>Ryad Senhadji</strong>, d&eacute;veloppeur Full Stack
+                        passionn&eacute; par la technologie et l'innovation. Actuellement en Master 1
+                        D&eacute;veloppeur Full Stack &agrave; l'ENSITECH, je conçois des applications
+                        web modernes et performantes.
+                    </p>
+                    <p>
+                        Mon parcours m'a permis d'explorer un large &eacute;ventail de technologies :
+                        du backend Java/Spring Boot au frontend React/TypeScript, en passant par
+                        PHP/Symfony, C#/.NET MAUI et Node.js. J'aime relever des d&eacute;fis techniques
+                        et cr&eacute;er des solutions qui font la diff&eacute;rence.
+                    </p>
+                    <p>
+                        Fort de mes exp&eacute;riences en entreprise chez Les Forges du Web et Worldline,
+                        je ma&icirc;trise le travail en &eacute;quipe agile et le d&eacute;ploiement
+                        d'applications professionnelles.
+                    </p>
+                    <div class="about-details">
+                        <div class="detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>France</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-envelope"></i>
+                            <span>ryadsenhadjii@gmail.com</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fab fa-github"></i>
+                            <span>github.com/dayr20</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fab fa-gitlab"></i>
+                            <span>gitlab.com/Senry</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fab fa-linkedin-in"></i>
+                            <span>LinkedIn</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Master 1 Full Stack</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section section-alt" id="experience">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="section-number">02.</span> Exp&eacute;rience Professionnelle
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>D&eacute;veloppeur Web - Stage</h3>
+                            <span class="timeline-date">Mars 2025 - Juillet 2025</span>
+                        </div>
+                        <p class="timeline-company"><i class="fas fa-building"></i> Les Forges du Web</p>
+                        <ul class="timeline-list">
+                            <li>Migration d'un projet Symfony vers une version plus r&eacute;cente</li>
+                            <li>Mise en place d'un syst&egrave;me de cache pour am&eacute;liorer les performances</li>
+                            <li>D&eacute;veloppement d'un moteur de recherche interne</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span>Symfony</span>
+                            <span>PHP</span>
+                            <span>Cache</span>
+                            <span>SEO</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Stagiaire IT</h3>
+                            <span class="timeline-date">Nov. 2019 - Janv. 2020</span>
+                        </div>
+                        <p class="timeline-company"><i class="fas fa-building"></i> Worldline</p>
+                        <ul class="timeline-list">
+                            <li>D&eacute;veloppement de pages web en HTML/CSS</li>
+                            <li>Installation et configuration de syst&egrave;mes Raspberry Pi</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>Raspberry Pi</span>
+                            <span>Linux</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section" id="education">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="section-number">03.</span> Formation
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Master 1 - D&eacute;veloppeur Full Stack</h3>
+                            <span class="timeline-date">2024 - 2025</span>
+                        </div>
+                        <p class="timeline-company"><i class="fas fa-university"></i> ENSITECH</p>
+                        <p class="timeline-desc">Formation approfondie en d&eacute;veloppement web Full Stack, architecture logicielle, m&eacute;thodologies agiles et DevOps.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Bachelor - D&eacute;veloppeur Full Stack</h3>
+                            <span class="timeline-date">2023 - 2024</span>
+                        </div>
+                        <p class="timeline-company"><i class="fas fa-university"></i> ENSITECH</p>
+                        <p class="timeline-desc">Fondamentaux du d&eacute;veloppement Full Stack : Java, Spring Boot, React, bases de donn&eacute;es et outils DevOps.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>BTS SNEC - Syst&egrave;mes Num&eacute;riques</h3>
+                            <span class="timeline-date">2018 - 2020</span>
+                        </div>
+                        <p class="timeline-company"><i class="fas fa-university"></i> Lyc&eacute;e Jean Jaur&egrave;s</p>
+                        <p class="timeline-desc">Option &Eacute;lectronique et Communication. Bases en programmation, &eacute;lectronique et r&eacute;seaux.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section section-alt" id="skills">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="section-number">04.</span> Comp&eacute;tences
+            </h2>
+            <div class="skills-grid skills-grid-4">
+                <div class="skill-category">
+                    <div class="skill-category-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Langages</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+                        <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+                        <span class="skill-tag"><i class="fas fa-code"></i> TypeScript</span>
+                        <span class="skill-tag"><i class="fab fa-php"></i> PHP</span>
+                        <span class="skill-tag"><i class="fas fa-hashtag"></i> C#</span>
+                        <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                        <span class="skill-tag"><i class="fas fa-fire"></i> Kotlin</span>
+                        <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
+                        <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+                        <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-category-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Frameworks & Outils</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fas fa-leaf"></i> Spring Boot</span>
+                        <span class="skill-tag"><i class="fab fa-symfony"></i> Symfony</span>
+                        <span class="skill-tag"><i class="fab fa-react"></i> React</span>
+                        <span class="skill-tag"><i class="fab fa-angular"></i> Angular</span>
+                        <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
+                        <span class="skill-tag"><i class="fas fa-cube"></i> .NET MAUI</span>
+                        <span class="skill-tag"><i class="fas fa-wind"></i> Tailwind CSS</span>
+                        <span class="skill-tag"><i class="fas fa-file-code"></i> Thymeleaf</span>
+                        <span class="skill-tag"><i class="fas fa-book"></i> Swagger</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-category-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>DevOps & BDD</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fas fa-database"></i> PostgreSQL</span>
+                        <span class="skill-tag"><i class="fas fa-database"></i> MySQL</span>
+                        <span class="skill-tag"><i class="fas fa-leaf"></i> MongoDB</span>
+                        <span class="skill-tag"><i class="fas fa-database"></i> SQLite</span>
+                        <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
+                        <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+                        <span class="skill-tag"><i class="fab fa-gitlab"></i> GitLab CI</span>
+                        <span class="skill-tag"><i class="fas fa-terminal"></i> Linux</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-category-header">
+                        <div class="skill-icon-wrapper">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>M&eacute;thodologies</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fas fa-sync"></i> Agile / Scrum</span>
+                        <span class="skill-tag"><i class="fas fa-project-diagram"></i> MVVM / MVC</span>
+                        <span class="skill-tag"><i class="fas fa-key"></i> JWT / Auth</span>
+                        <span class="skill-tag"><i class="fas fa-vial"></i> Tests unitaires</span>
+                        <span class="skill-tag"><i class="fas fa-code-branch"></i> CI/CD</span>
+                        <span class="skill-tag"><i class="fas fa-users"></i> Travail d'&eacute;quipe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="section-number">05.</span> Mes Projets
+            </h2>
+            <div class="projects-grid">
+                <!-- Project 1 - CookWithMe (Featured) -->
+                <article class="project-card featured">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/dayr20/cookwithme" target="_blank" class="project-link" title="Voir sur GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">CookWithMe</h3>
+                        <p class="project-description">
+                            Application communautaire de recettes de cuisine avec syst&egrave;me
+                            de gamification (badges, d&eacute;fis) et filtre anti-gaspillage.
+                            Authentification JWT, dashboard admin et g&eacute;n&eacute;ration de PDF.
+                        </p>
+                        <div class="project-tech">
+                            <span>Java</span>
+                            <span>Spring Boot</span>
+                            <span>React</span>
+                            <span>TypeScript</span>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="project-badge">
+                            <i class="fas fa-star"></i> Projet Master 1
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 - Pokedex -->
+                <article class="project-card featured">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-dragon"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/dayr20/pokedex" target="_blank" class="project-link" title="Voir sur GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Pok&eacute;dex</h3>
+                        <p class="project-description">
+                            Pok&eacute;dex interactif et complet avec 1025 Pok&eacute;mon.
+                            &Eacute;volutions, attaques, variantes shiny, filtres par type/g&eacute;n&eacute;ration,
+                            syst&egrave;me de favoris et th&egrave;me sombre/clair.
+                        </p>
+                        <div class="project-tech">
+                            <span>Java 21</span>
+                            <span>Spring Boot</span>
+                            <span>Thymeleaf</span>
+                            <span>Pok&eacute;API</span>
+                        </div>
+                        <div class="project-badge">
+                            <i class="fas fa-star"></i> 1025 Pok&eacute;mon
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 - MangaZone -->
+                <article class="project-card featured">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-book-reader"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="Projet priv&eacute;">
+                                    <i class="fas fa-lock"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">MangaZone</h3>
+                        <p class="project-description">
+                            Plateforme de gestion de collection de mangas. Application web
+                            progressive (PWA) avec interface responsive, syst&egrave;me de suivi
+                            de lecture et recommandations.
+                        </p>
+                        <div class="project-tech">
+                            <span>PHP</span>
+                            <span>Symfony</span>
+                            <span>MySQL</span>
+                            <span>PWA</span>
+                        </div>
+                        <div class="project-badge">
+                            <i class="fas fa-star"></i> Progressive Web App
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4 - MusicAlbumExplorer -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="Projet priv&eacute;">
+                                    <i class="fas fa-lock"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">MusicAlbumExplorer</h3>
+                        <p class="project-description">
+                            Application desktop d'exploration d'albums musicaux.
+                            Architecture MVVM, consommation d'APIs musicales
+                            et interface native multiplateforme.
+                        </p>
+                        <div class="project-tech">
+                            <span>C#</span>
+                            <span>.NET MAUI</span>
+                            <span>MVVM</span>
+                            <span>API REST</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 5 - E-Commerce V1 -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="Projet priv&eacute;">
+                                    <i class="fas fa-lock"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">E-Commerce V1</h3>
+                        <p class="project-description">
+                            Plateforme e-commerce compl&egrave;te avec gestion de produits,
+                            panier, authentification s&eacute;curis&eacute;e Spring Security
+                            et syst&egrave;me de commandes.
+                        </p>
+                        <div class="project-tech">
+                            <span>Java</span>
+                            <span>Spring Security</span>
+                            <span>MySQL</span>
+                            <span>Thymeleaf</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 6 - Energie Suivi -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://gitlab.com/Senry/energiesuivi" target="_blank" class="project-link" title="Voir sur GitLab">
+                                    <i class="fab fa-gitlab"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Energie Suivi</h3>
+                        <p class="project-description">
+                            Application web de suivi de consommation &eacute;nerg&eacute;tique.
+                            API REST avec authentification JWT, tableaux de bord
+                            interactifs et conteneurisation Docker.
+                        </p>
+                        <div class="project-tech">
+                            <span>Node.js</span>
+                            <span>Express</span>
+                            <span>SQLite</span>
+                            <span>Docker</span>
+                            <span>JWT</span>
+                        </div>
+                        <div class="project-badge">
+                            <i class="fab fa-gitlab"></i> H&eacute;berg&eacute; sur GitLab
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 7 - Bibliotheque -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/dayr20/bibliotheque" target="_blank" class="project-link" title="Voir sur GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Biblioth&egrave;que</h3>
+                        <p class="project-description">
+                            Application web de gestion de biblioth&egrave;que d&eacute;velopp&eacute;e avec
+                            le framework Symfony. Interface Twig, conteneurisation Docker
+                            et pipeline CI/CD int&eacute;gr&eacute;.
+                        </p>
+                        <div class="project-tech">
+                            <span>PHP</span>
+                            <span>Symfony</span>
+                            <span>Twig</span>
+                            <span>Docker</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 8 - Swot -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/dayr20/swot" target="_blank" class="project-link" title="Voir sur GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Swot</h3>
+                        <p class="project-description">
+                            Outil d'identification d'adresses email et de noms de domaines
+                            appartenant &agrave; des universit&eacute;s. Automatisation du processus
+                            de validation de r&eacute;ductions acad&eacute;miques.
+                        </p>
+                        <div class="project-tech">
+                            <span>Kotlin</span>
+                            <span>Validation</span>
+                            <span>Open Source</span>
+                        </div>
+                        <div class="project-badge">
+                            <i class="fas fa-code-fork"></i> Fork de JetBrains
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 9 - Portfolio -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/dayr20" target="_blank" class="project-link" title="Voir sur GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Portfolio Personnel</h3>
+                        <p class="project-description">
+                            Mon portfolio personnel construit avec HTML, CSS et JavaScript vanilla.
+                            Design moderne avec animations fluides, mode sombre et particules interactives.
+                        </p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section section-alt" id="contact">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="section-number">06.</span> Contact
+            </h2>
+            <div class="contact-content">
+                <div class="contact-text">
+                    <h3>Travaillons ensemble !</h3>
+                    <p>
+                        Vous avez un projet int&eacute;ressant ou une opportunit&eacute; de collaboration ?
+                        N'h&eacute;sitez pas &agrave; me contacter. Je suis toujours ouvert &agrave; de nouvelles
+                        discussions et id&eacute;es.
+                    </p>
+                </div>
+                <div class="contact-links">
+                    <a href="mailto:ryadsenhadjii@gmail.com" class="contact-card">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-card-info">
+                            <span class="contact-card-label">Email</span>
+                            <span class="contact-card-value">ryadsenhadjii@gmail.com</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-card-arrow"></i>
+                    </a>
+                    <a href="https://github.com/dayr20" target="_blank" class="contact-card">
+                        <div class="contact-card-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="contact-card-info">
+                            <span class="contact-card-label">GitHub</span>
+                            <span class="contact-card-value">dayr20</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-card-arrow"></i>
+                    </a>
+                    <a href="https://gitlab.com/Senry" target="_blank" class="contact-card">
+                        <div class="contact-card-icon">
+                            <i class="fab fa-gitlab"></i>
+                        </div>
+                        <div class="contact-card-info">
+                            <span class="contact-card-label">GitLab</span>
+                            <span class="contact-card-value">Senry</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-card-arrow"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ryad-senhadji-77ab50255/" target="_blank" class="contact-card">
+                        <div class="contact-card-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <div class="contact-card-info">
+                            <span class="contact-card-label">LinkedIn</span>
+                            <span class="contact-card-value">Ryad Senhadji</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-card-arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    <span class="footer-code">&lt;</span>
+                    Con&ccedil;u & D&eacute;velopp&eacute; par <strong>Ryad Senhadji</strong>
+                    <span class="footer-code">/&gt;</span>
+                </p>
+                <div class="footer-social">
+                    <a href="https://github.com/dayr20" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://gitlab.com/Senry" target="_blank" aria-label="GitLab">
+                        <i class="fab fa-gitlab"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ryad-senhadji-77ab50255/" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:ryadsenhadjii@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                <p class="footer-year">&copy; 2026 Ryad Senhadji. Tous droits r&eacute;serv&eacute;s.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
