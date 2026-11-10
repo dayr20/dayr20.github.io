@@ -1,762 +1,630 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryad Senhadji | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ryad Senhadji — Développeur full stack</title>
+<meta name="description" content="CV de Ryad Senhadji, développeur full stack en recherche d'alternance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#000; --paper:#fff; --grey:#7a7a7a;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --pix:'Silkscreen',var(--mono);
+  --menu-h:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font:13px/1.55 var(--mono);color:var(--ink);background-color:var(--paper);
+  /* trame 25 % : un pixel noir sur quatre */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3C/svg%3E");
+  -webkit-font-smoothing:antialiased;user-select:none;cursor:default;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:default}
+a{color:inherit}
+::selection{background:var(--ink);color:var(--paper)}
+
+/* Barres de défilement 1-bit */
+.content::-webkit-scrollbar{width:15px;height:15px}
+.content::-webkit-scrollbar-track{border-left:1px solid var(--ink);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2' shape-rendering='crispEdges'%3E%3Crect width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3C/svg%3E")}
+.content::-webkit-scrollbar-thumb{background:var(--paper);border:1px solid var(--ink)}
+.content::-webkit-scrollbar-corner{background:var(--paper)}
+
+/* ---------- Démarrage ---------- */
+#splash{position:fixed;inset:0;display:grid;place-items:center;z-index:9999;transition:opacity .2s}
+#splash.off{opacity:0;pointer-events:none}
+.splash-box{background:var(--paper);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);padding:26px 40px 22px;text-align:center;min-width:280px}
+.splash-box .name{font:16px var(--pix);margin:14px 0 2px}
+.splash-box .sub{color:var(--grey);font-size:12px}
+.bar{height:12px;border:1px solid var(--ink);margin-top:18px;padding:1px}
+.bar i{display:block;height:100%;width:0;background:var(--ink);transition:width 1s steps(12)}
+
+/* ---------- Barre de menus ---------- */
+.menubar{position:fixed;top:0;left:0;right:0;height:var(--menu-h);background:var(--paper);border-bottom:1px solid var(--ink);display:flex;align-items:stretch;z-index:5000;font-weight:600;font-size:12.5px}
+.menubar > button,.menubar .menu > button{padding:0 10px;display:flex;align-items:center;height:100%}
+.menubar > button:hover,.menubar .menu > button:hover,.menubar .menu.open > button{background:var(--ink);color:var(--paper)}
+.menubar .logo{padding:0 12px}
+.menubar .logo svg{display:block}
+.menubar .logo:hover svg rect.w{fill:var(--ink)} .menubar .logo:hover svg rect.b{fill:var(--paper)}
+.menubar .spacer{flex:1}
+.menubar .status{display:flex;align-items:center;gap:7px;padding:0 12px;font-weight:400}
+.menubar .status i{width:7px;height:7px;background:var(--ink);animation:blink 1.2s steps(1) infinite}
+@keyframes blink{50%{background:transparent;outline:1px solid var(--ink);outline-offset:-1px}}
+.menubar .clock{padding:0 12px;display:flex;align-items:center;font-weight:400}
+.menu{position:relative}
+.dropdown{display:none;position:absolute;top:100%;left:0;background:var(--paper);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);min-width:220px;padding:2px 0;font-weight:400}
+.menu.open .dropdown{display:block}
+.dropdown button,.dropdown a{display:flex;justify-content:space-between;width:100%;text-align:left;padding:2px 18px;text-decoration:none}
+.dropdown button:hover,.dropdown a:hover{background:var(--ink);color:var(--paper)}
+.dropdown hr{border:0;border-top:1px dotted var(--ink);margin:3px 0}
+.dropdown kbd{font:inherit;color:var(--grey)}
+.dropdown button:hover kbd{color:var(--paper)}
+
+/* ---------- Icônes du bureau ---------- */
+.icons{position:fixed;top:calc(var(--menu-h) + 14px);right:14px;display:grid;grid-auto-flow:column;grid-template-rows:repeat(auto-fill,78px);direction:rtl;gap:4px 8px;height:calc(100% - var(--menu-h) - 28px)}
+.icon{direction:ltr;width:84px;display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:4px}
+.icon svg{display:block;width:32px;height:32px}
+.icon span{background:var(--paper);padding:0 3px;font-size:11.5px;line-height:1.35;text-align:center;max-width:110px}
+svg rect.b{fill:var(--ink)} svg rect.w{fill:var(--paper)}
+.icon.sel svg rect.b{fill:var(--paper)} .icon.sel svg rect.w{fill:var(--ink)}
+.icon.sel span{background:var(--ink);color:var(--paper)}
+.icon:focus-visible{outline:none}
+.icon:focus-visible span{outline:1px dotted var(--ink);outline-offset:1px}
+
+/* ---------- Fenêtres ---------- */
+.win{position:absolute;background:var(--paper);border:1px solid var(--ink);box-shadow:1px 1px 0 var(--ink);display:flex;flex-direction:column;min-width:260px;min-height:140px}
+.tb{position:relative;height:20px;flex-shrink:0;border-bottom:1px solid var(--ink);display:flex;align-items:center;justify-content:center;touch-action:none}
+.win.active .tb::before{content:"";position:absolute;inset:3px 2px;background:repeating-linear-gradient(to bottom,var(--ink) 0 1px,transparent 1px 2px)}
+.tb .title{position:relative;background:var(--paper);padding:0 8px;font-weight:600;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 70px)}
+.win:not(.active) .tb .title{color:var(--grey)}
+.tb .box{position:absolute;top:4px;width:11px;height:11px;border:1px solid var(--ink);background:var(--paper)}
+.tb .close{left:8px} .tb .zoom{right:8px}
+.tb .zoom::after{content:"";position:absolute;left:0;top:0;width:5px;height:5px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.win:not(.active) .tb .box{visibility:hidden}
+.tb .box:active{background:var(--ink)}
+.info{display:flex;justify-content:space-between;gap:12px;padding:1px 10px;border-bottom:1px solid var(--ink);font-size:11.5px;flex-shrink:0;box-shadow:0 2px 0 var(--paper),0 3px 0 var(--ink);margin-bottom:3px}
+.content{flex:1;overflow:auto;user-select:text;cursor:auto}
+.content.pad{padding:18px 22px}
+.grow{position:absolute;right:0;bottom:0;width:15px;height:15px;border-left:1px solid var(--ink);border-top:1px solid var(--ink);background:var(--paper);cursor:nwse-resize;touch-action:none}
+.grow::before,.grow::after{content:"";position:absolute;border:1px solid var(--ink);background:var(--paper)}
+.grow::before{left:2px;top:2px;width:7px;height:7px}
+.grow::after{left:5px;top:5px;width:6px;height:6px}
+.win:not(.active) .grow::before,.win:not(.active) .grow::after{display:none}
+
+/* Typo dans les fenêtres */
+h1,h2{font-family:var(--pix);font-weight:400;line-height:1.1}
+h1{font-size:24px;margin-bottom:6px}
+h2{font-size:16px;margin:22px 0 8px}
+h2:first-child{margin-top:0}
+p + p{margin-top:10px}
+.small{font-size:11.5px;color:var(--grey)}
+hr.dots{border:0;border-top:1px dotted var(--ink);margin:16px 0}
+ul.dash{list-style:none}
+ul.dash li{padding-left:18px;position:relative}
+ul.dash li::before{content:"—";position:absolute;left:0}
+.letter{max-width:58ch}
+
+/* Boutons classiques : le bouton par défaut a un double contour */
+.btns{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;align-items:center}
+.btn{display:inline-block;padding:3px 16px;border:1px solid var(--ink);border-radius:7px;background:var(--paper);text-decoration:none;font-weight:600;font-size:12.5px;cursor:default}
+.btn:active{background:var(--ink);color:var(--paper)}
+.btn.default{box-shadow:0 0 0 2px var(--paper),0 0 0 5px var(--ink);border-radius:7px}
+
+/* Vue liste (Parcours) */
+.list{width:100%;border-collapse:collapse}
+.list th{font-weight:400;text-align:left;padding:3px 8px;border-bottom:1px solid var(--ink);font-size:11.5px;position:sticky;top:0;background:var(--paper)}
+.list th:first-child{padding-left:28px}
+.list td{padding:3px 8px;vertical-align:top;white-space:nowrap}
+.list td.name{white-space:normal}
+.list tr.row.sel td{background:var(--ink);color:var(--paper)}
+.list tr.group td{font-weight:600;padding-top:12px;padding-left:10px}
+.tri{display:inline-block;width:0;height:0;border-left:6px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent;margin:0 9px 0 4px}
+.open .tri{transform:rotate(90deg)}
+.list tr.detail td{white-space:normal;padding:2px 8px 12px 28px}
+.list tr.detail ul{max-width:62ch}
+
+/* Vue icônes (Projets) */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:14px 6px;padding:18px 12px}
+.grid .icon{width:auto}
+
+/* Compétences */
+.kv{border-collapse:collapse;width:100%}
+.kv td{padding:6px 0;border-bottom:1px dotted var(--ink);vertical-align:top}
+.kv td:first-child{width:150px;padding-right:16px;font-weight:600}
+
+/* Contact */
+.fields{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;align-items:baseline}
+.fields .v{border-bottom:1px solid var(--ink);padding:0 2px;word-break:break-all}
+
+/* PDF */
+.pdf{display:flex;flex-direction:column;height:100%}
+.pdf .bar2{display:flex;gap:18px;padding:12px 14px;border-bottom:1px solid var(--ink);align-items:center;flex-wrap:wrap}
+.pdf iframe{flex:1;border:0;width:100%;min-height:200px}
+
+/* Terminal */
+.win.term .content{background:var(--ink);color:var(--paper);padding:10px 12px;cursor:text}
+.term-out div{white-space:pre-wrap;word-break:break-word}
+.term-in{display:flex;gap:8px}
+.term-in input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--paper);font:inherit;caret-color:var(--paper)}
+.term .inv{background:var(--paper);color:var(--ink);padding:0 3px}
+.term .k{cursor:pointer;text-decoration:underline}
+.term a{color:var(--paper)}
+
+/* Boîte d'alerte */
+.modal{position:fixed;inset:0;display:grid;place-items:center;z-index:8000}
+.alert{background:var(--paper);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);padding:3px;max-width:400px;width:calc(100% - 32px)}
+.alert > div{border:2px solid var(--ink);padding:18px 18px 18px;display:flex;gap:16px}
+.alert svg{flex-shrink:0;width:32px;height:32px}
+.alert .btns{justify-content:flex-end;margin-top:18px}
+
+/* ---------- Mobile ---------- */
+@media (max-width:720px){
+  .menubar .hide-sm{display:none}
+  .menubar > button,.menubar .menu > button{padding:0 7px}
+  .menubar .logo{padding:0 8px}
+  .menubar .clock{padding:0 8px}
+  .icons{left:8px;right:8px;top:calc(var(--menu-h) + 12px);height:auto;grid-auto-flow:row;grid-template-rows:none;grid-template-columns:repeat(4,1fr);direction:ltr}
+  .icon{width:auto}
+  .win{left:0!important;top:var(--menu-h)!important;width:100%!important;height:calc(100% - var(--menu-h))!important;border-left:0;border-right:0;box-shadow:none}
+  .grow,.tb .zoom{display:none}
+  .content.pad{padding:16px}
+  .list th:nth-child(2),.list td:nth-child(2){display:none}
+  .fields{grid-template-columns:1fr;gap:2px}
+  .fields > span:nth-child(odd){margin-top:8px;color:var(--grey);font-size:11.5px}
+  .kv td:first-child{width:105px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
-    <!-- Cursor glow effect -->
-    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- Particle background -->
-    <canvas id="particleCanvas"></canvas>
+<div id="splash" aria-hidden="true">
+  <div class="splash-box">
+    <span id="splashIcon"></span>
+    <div class="name">Ryad Senhadji</div>
+    <div class="sub">Développeur full stack</div>
+    <div class="bar"><i id="splashBar"></i></div>
+  </div>
+</div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo">
-                <span class="logo-bracket">&lt;</span>RS<span class="logo-bracket">/&gt;</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active">Accueil</a></li>
-                <li><a href="#about" class="nav-link">A propos</a></li>
-                <li><a href="#experience" class="nav-link">Exp&eacute;rience</a></li>
-                <li><a href="#education" class="nav-link">Formation</a></li>
-                <li><a href="#skills" class="nav-link">Comp&eacute;tences</a></li>
-                <li><a href="#projects" class="nav-link">Projets</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="https://github.com/dayr20" target="_blank" class="nav-social-icon" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://gitlab.com/Senry" target="_blank" class="nav-social-icon" aria-label="GitLab">
-                    <i class="fab fa-gitlab"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/ryad-senhadji-77ab50255/" target="_blank" class="nav-social-icon" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div>
-            <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <ul class="mobile-links">
-            <li><a href="#home" class="mobile-link">Accueil</a></li>
-            <li><a href="#about" class="mobile-link">A propos</a></li>
-            <li><a href="#experience" class="mobile-link">Exp&eacute;rience</a></li>
-            <li><a href="#education" class="mobile-link">Formation</a></li>
-            <li><a href="#skills" class="mobile-link">Comp&eacute;tences</a></li>
-            <li><a href="#projects" class="mobile-link">Projets</a></li>
-            <li><a href="#contact" class="mobile-link">Contact</a></li>
-        </ul>
+<header class="menubar">
+  <button class="logo" aria-label="Lisez-moi" data-open="readme" id="logoBtn"></button>
+  <div class="menu" id="fileMenu">
+    <button aria-haspopup="true">Fichier</button>
+    <div class="dropdown" role="menu">
+      <button data-open="readme">Lisez-moi</button>
+      <button data-open="cv">Ouvrir CV.pdf</button>
+      <a href="CV_Ryad_Senhadji.pdf" download>Télécharger CV.pdf</a>
+      <hr>
+      <button data-open="terminal">Terminal <kbd>Ctrl T</kbd></button>
+      <hr>
+      <button id="closeAll">Tout fermer</button>
     </div>
+  </div>
+  <button data-open="parcours">Parcours</button>
+  <button data-open="projets">Projets</button>
+  <button data-open="competences" class="hide-sm">Compétences</button>
+  <button data-open="contact">Contact</button>
+  <span class="spacer"></span>
+  <span class="status hide-sm"><i></i>Alternance 12 mois · dès que possible</span>
+  <span class="clock" id="clock"></span>
+</header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-text">
-                <p class="hero-greeting animate-slide-up">
-                    <span class="greeting-wave">👋</span> Bonjour, je suis
-                </p>
-                <h1 class="hero-name animate-slide-up delay-1">
-                    Ryad <span class="text-gradient">Senhadji</span>
-                </h1>
-                <div class="hero-title-wrapper animate-slide-up delay-2">
-                    <span class="hero-title-prefix">Je suis </span>
-                    <span class="typewriter" id="typewriter"></span>
-                    <span class="typewriter-cursor">|</span>
-                </div>
-                <p class="hero-description animate-slide-up delay-3">
-                    Passionn&eacute; par le d&eacute;veloppement et la technologie.
-                    Je cr&eacute;e des solutions innovantes et des exp&eacute;riences num&eacute;riques modernes.
-                </p>
-                <div class="hero-cta animate-slide-up delay-4">
-                    <a href="#projects" class="btn btn-primary">
-                        <span>Voir mes projets</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="CV_Ryad_Senhadji.pdf" download class="btn btn-outline">
-                        <span>T&eacute;l&eacute;charger CV</span>
-                        <i class="fas fa-download"></i>
-                    </a>
-                </div>
-                <div class="hero-stats animate-slide-up delay-5">
-                    <div class="stat">
-                        <span class="stat-number" data-count="9">0</span><span class="stat-plus">+</span>
-                        <span class="stat-label">Projets</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat">
-                        <span class="stat-number" data-count="20">0</span><span class="stat-plus">+</span>
-                        <span class="stat-label">Technologies</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat">
-                        <i class="fab fa-github stat-icon"></i>
-                        <span class="stat-label">Open Source</span>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-visual animate-fade-in delay-2">
-                <div class="code-window">
-                    <div class="code-header">
-                        <div class="code-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <span class="code-title">portfolio.ts</span>
-                    </div>
-                    <pre class="code-body"><code><span class="code-keyword">const</span> <span class="code-var">developer</span> = {
-  <span class="code-prop">name</span>: <span class="code-string">"Ryad Senhadji"</span>,
-  <span class="code-prop">role</span>: <span class="code-string">"Full Stack Dev"</span>,
-  <span class="code-prop">skills</span>: [
-    <span class="code-string">"Java / Spring"</span>,
-    <span class="code-string">"React / TS"</span>,
-    <span class="code-string">"PHP / Symfony"</span>,
-    <span class="code-string">"C# / .NET"</span>,
-    <span class="code-string">"Node / Express"</span>,
-  ],
-  <span class="code-prop">db</span>: [<span class="code-string">"PostgreSQL"</span>, <span class="code-string">"MongoDB"</span>],
-  <span class="code-prop">available</span>: <span class="code-bool">true</span>,
-  <span class="code-method">sayHello</span>() {
-    <span class="code-keyword">return</span> <span class="code-string">"Let's build!"</span> 🚀
+<nav class="icons" id="icons" aria-label="Bureau"></nav>
+<div id="windows"></div>
+
+<script>
+/* ============ Contenu du CV ============ */
+const ME = {
+  name:"Ryad Senhadji", email:"ryadsenhadjii@gmail.com", phone:"07 67 79 04 08",
+  github:"https://github.com/dayr20", gitlab:"https://gitlab.com/Senry",
+  linkedin:"https://www.linkedin.com/in/ryad-senhadji-77ab50255", pdf:"CV_Ryad_Senhadji.pdf",
+};
+
+const PARCOURS = [
+  { group:"Expériences" },
+  { name:"Développeur web, alternance", where:"Le Croissant Doré, Saint-Ouen", when:"janv. – août 2026", items:[
+    "Conception et développement d'un site vitrine de bout en bout, en HTML, CSS et JavaScript, sans CMS.",
+    "Mise en production complète : nom de domaine, hébergement et déploiement.",
+    "Création du menu en ligne, tenu à jour à chaque changement de carte.",
+    "Maintenance et évolutions du site pendant huit mois, en autonomie complète.",
+    "Recueil des besoins auprès du gérant et traduction en choix techniques."]},
+  { name:"Développeur web, stage", where:"Les Forges du Web", when:"mars – juil. 2025", items:[
+    "Montée de version d'une application en production, de Symfony 5.4 à 6.4, sans interruption de service.",
+    "Mise en place d'un système de cache pour réduire les temps de chargement.",
+    "Refonte du moteur de recherche interne, avec indexation et tolérance aux fautes de frappe.",
+    "Nouvelles fonctionnalités et corrections de bugs sur une base de code existante.",
+    "Travail en équipe agile : revues de code, conventions du projet, livraisons régulières."]},
+  { group:"Formation" },
+  { name:"Master Développeur full stack, M2 en cours", where:"ENSITECH, Cergy", when:"2025 – 2027", items:[
+    "Titre RNCP niveau 7 (bac+5), option Lead Developer Full Stack.",
+    "Architecture logicielle, API et services web, CI/CD, bases de données, sécurité applicative (OWASP)."]},
+  { name:"Bachelor Développeur full stack", where:"ENSITECH, Cergy", when:"2024 – 2025", items:[
+    "Développement web et applicatif, projets en équipe, méthodes agiles."]},
+  { name:"BTS Systèmes numériques", where:"Lycée Jean Jaurès", when:"2021 – 2022", items:[
+    "Option électronique et communication."]},
+  { group:"Certifications" },
+  { name:"Python Essentials 1 et 2", where:"Cisco Networking Academy", when:"oct. 2026", items:[
+    "Badges vérifiés."]},
+  { name:"JavaScript Essentials 1", where:"Cisco Networking Academy", when:"nov. 2026", items:[
+    "Badge vérifié."]},
+];
+
+const PROJETS = [
+  { id:"rag", name:"API RAG", tag:"Projet personnel, 2026",
+    text:"Une API qui répond à des questions à partir de vos propres documents. Elle lit des fichiers texte et PDF, les découpe en fragments, puis retrouve les passages les plus proches de la question pour générer une réponse qui cite ses sources.",
+    detail:"Recherche par similarité cosinus sur des embeddings (sentence-transformers). Le modèle de langage est limité au contexte trouvé pour éviter qu'il invente. Testé avec Pytest.",
+    stack:"Python, FastAPI, Pydantic, NumPy, Docker, Pytest" },
+  { id:"cookwithme", name:"CookWithMe", tag:"Projet de formation, 2025",
+    text:"Une application de partage de recettes. Les utilisateurs gagnent des badges et relèvent des défis, filtrent les recettes selon ce qu'il leur reste dans le frigo, et exportent leur liste de courses en PDF. Il y a aussi un tableau de bord pour les administrateurs.",
+    detail:"Authentification par JWT. Tests côté serveur avec JUnit, côté interface avec Vitest.",
+    stack:"Java 21, Spring Boot, Spring Security, React 18, TypeScript, PostgreSQL, Docker, Tailwind CSS" },
+  { id:"mangazone", name:"MangaZone",
+    text:"Une bibliothèque de mangas en ligne, installable sur téléphone (PWA). On peut laisser des avis, consulter des statistiques et importer des séries depuis l'API de MangaDex.",
+    detail:"API REST documentée avec Swagger, intégration et déploiement continus sur GitLab.",
+    stack:"PHP 8.2, Symfony 6.4, MySQL, Docker, Swagger" },
+  { id:"pokedex", name:"Pokédex",
+    text:"Un Pokédex des 1 025 Pokémon : statistiques, évolutions, attaques, cris et versions shiny. Thème clair ou sombre, chargement au fil du défilement.",
+    detail:"Les données viennent de la PokéAPI, rendues côté serveur avec Thymeleaf.",
+    stack:"Java 21, Spring Boot, Thymeleaf, JavaScript" },
+  { id:"energiesuivi", name:"EnergieSuivi", tag:"Projet de formation, 2025",
+    text:"Un outil pour suivre sa consommation d'énergie : import de relevés en CSV, tableau de bord et alertes quand un seuil est dépassé.",
+    detail:"API REST sécurisée par JWT.",
+    stack:"Node.js, Express, SQLite, Docker" },
+  { id:"musicalbum", name:"MusicAlbumExplorer",
+    text:"Une application mobile pour parcourir des albums de musique, qui tourne sur Android et sur les autres plateformes.",
+    detail:"Architecture MVVM avec data binding.",
+    stack:"C#, .NET MAUI" },
+  { id:"ecommerce", name:"E-commerce",
+    text:"Une boutique en ligne : catalogue de produits, panier et comptes clients.",
+    detail:"Sécurité gérée avec Spring Security, persistance avec JPA.",
+    stack:"Java, Spring Boot, Spring Security, MySQL, JPA" },
+];
+
+const COMPETENCES = [
+  ["Back-end","Java / Spring Boot, PHP / Symfony, Node.js / Express, C# / .NET."],
+  ["Front-end","React, TypeScript, JavaScript, HTML/CSS. Aussi : Angular, Tailwind CSS."],
+  ["Python","FastAPI, NumPy, Pytest. Embeddings, recherche vectorielle, RAG. Certifié Cisco Python Essentials 1 et 2."],
+  ["Données","PostgreSQL, MySQL, MongoDB, SQLite."],
+  ["Outils","Docker, Git, GitLab CI, Swagger, Linux. Hébergement et mise en production."],
+  ["Méthodes","Agile, API REST, tests unitaires (JUnit, Vitest), sécurité OWASP."],
+  ["Langues","Français (langue maternelle), anglais (B2)."],
+  ["À côté","Football, natation, veille sur l'IA générative."],
+];
+
+/* ============ Icônes dessinées au pixel (16×16) ============ */
+const PIX = {
+  folder:["................","................","..#####.........",".#ooooo#........","#ooooooo#######.","#ooooooooooooo#.","###############.","#ooooooooooooo#.","#ooooooooooooo#.","#ooooooooooooo#.","#ooooooooooooo#.","#ooooooooooooo#.","#ooooooooooooo#.","###############.","................","................"],
+  doc:["..#########.....","..#ooooooo##....","..#ooooooo#o#...","..#ooooooo####..","..#oooooooooo#..","..#o######ooo#..","..#oooooooooo#..","..#o#######oo#..","..#oooooooooo#..","..#o#####oooo#..","..#oooooooooo#..","..#o#######oo#..","..#oooooooooo#..","..#oooooooooo#..","..############..","................"],
+  pdf:["..#########.....","..#ooooooo##....","..#ooooooo#o#...","..#ooooooo####..","..#oooooooooo#..","..#o######ooo#..","..#oooooooooo#..","..#o#######oo#..","..#oooooooooo#..","..############..","..#o##o#oo##o#..","..#o#o#o#o#oo#..","..#oo#oo##o#o#..","..############..","................","................"],
+  term:["................",".##############.",".#oooooooooooo#.",".#o##########o#.",".#o#o########o#.",".#o##o#######o#.",".#o#o##ooo###o#.",".#o##########o#.",".#o##########o#.",".#oooooooooooo#.",".##############.","......####......","....########....","................","................","................"],
+  trash:["................","......####......","..############..","..#oooooooooo#..","..############..","...#oooooooo#...","...#oo#oo#oo#...","...#oo#oo#oo#...","...#oo#oo#oo#...","...#oo#oo#oo#...","...#oo#oo#oo#...","...#oo#oo#oo#...","...#oo#oo#oo#...","...##########...","................","................"],
+  mail:["................","................","................",".##############.",".##oooooooooo##.",".#o##oooooo##o#.",".#ooo##oo##ooo#.",".#ooooo##ooooo#.",".#oooooooooooo#.",".#oooooooooooo#.",".#oooooooooooo#.",".##############.","................","................","................","................"],
+  r:["################","#oooooooooooooo#","#ooo#######oooo#","#ooo##ooo##oooo#","#ooo##ooo##oooo#","#ooo#######oooo#","#ooo##o##oooooo#","#ooo##oo##ooooo#","#ooo##ooo##oooo#","#ooo##oooo##ooo#","#oooooooooooooo#","################"],
+  alert:["......####......",".....#oooo#.....","....#oo##oo#....","....#oo##oo#....","...#ooo##ooo#...","...#ooo##ooo#...","..#oooo##oooo#..","..#oooo##oooo#..",".#ooooo##ooooo#.",".#oooooooooooo#.","#oooooo##oooooo#","#oooooo##oooooo#","#oooooooooooooo#","################","................","................"],
+};
+function pix(name, size=32){
+  const map = PIX[name], w = Math.max(...map.map(r => r.length)), h = map.length;
+  let r = "";
+  map.forEach((row,y) => [...row].forEach((c,x) => {
+    if(c === "#") r += `<rect class="b" x="${x}" y="${y}" width="1" height="1"/>`;
+    else if(c === "o") r += `<rect class="w" x="${x}" y="${y}" width="1" height="1"/>`;
+  }));
+  return `<svg viewBox="0 0 ${w} ${h}" width="${size}" height="${size*h/w}" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`;
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ============ Fenêtres ============ */
+const APPS = {
+  readme:      { title:"Lisez-moi", icon:"doc", w:540, h:560, pad:true },
+  parcours:    { title:"Parcours", icon:"folder", w:740, h:470 },
+  projets:     { title:"Projets", icon:"folder", w:520, h:330 },
+  competences: { title:"Compétences", icon:"doc", w:560, h:430, pad:true },
+  contact:     { title:"Contact", icon:"mail", w:460, h:350, pad:true },
+  cv:          { title:"CV_Ryad_Senhadji.pdf", icon:"pdf", w:620, h:640 },
+  terminal:    { title:"Terminal", icon:"term", w:600, h:360, cls:"term" },
+  corbeille:   { title:"Corbeille", icon:"trash", w:340, h:200 },
+};
+const DESK = [["readme","Lisez-moi"],["parcours","Parcours"],["projets","Projets"],["competences","Compétences"],["contact","Contact"],["cv","CV.pdf"],["terminal","Terminal"],["corbeille","Corbeille"]];
+
+const RENDER = {
+  readme:() => `<div class="letter">
+    <h1>Bonjour,</h1>
+    <p>Je m'appelle Ryad Senhadji. Je suis développeur full stack, en M2 à ENSITECH, et je cherche une <b>alternance de 12 mois, dès que possible</b>.</p>
+    <p>Ce site est mon CV. Il marche comme un vieux bureau d'ordinateur : ${isMobile() ? "touchez" : "double-cliquez sur"} les icônes pour ouvrir les dossiers, ou passez par les menus en haut. La version papier est dans <b>CV.pdf</b>.</p>
+    <hr class="dots">
+    <ul class="dash">
+      <li>Huit mois d'alternance au Croissant Doré : un site conçu, mis en ligne et maintenu seul</li>
+      <li>Cinq mois de stage chez Les Forges du Web, sur une application Symfony en production</li>
+      <li>Java / Spring Boot et PHP / Symfony côté serveur, React et TypeScript côté interface</li>
+      <li>Basé à Paris (7e), permis B</li>
+    </ul>
+    <hr class="dots">
+    <p>Merci d'avoir pris le temps de regarder.<br>Ryad</p>
+    <div class="btns">
+      <button class="btn default" data-open="contact">Me contacter</button>
+      <button class="btn" data-open="projets">Voir les projets</button>
+    </div></div>`,
+
+  parcours:() => {
+    let i = 0;
+    return `<table class="list"><thead><tr><th>Nom</th><th>Lieu</th><th>Période</th></tr></thead><tbody>${
+      PARCOURS.map(p => p.group
+        ? `<tr class="group"><td colspan="3">${p.group}</td></tr>`
+        : `<tr class="row" data-i="${i}"><td class="name"><span class="tri"></span>${p.name}</td><td>${p.where}</td><td>${p.when}</td></tr>
+           <tr class="detail" data-for="${i++}" hidden><td colspan="3"><ul class="dash">${p.items.map(x => `<li>${x}</li>`).join("")}</ul></td></tr>`
+      ).join("")}</tbody></table>`;
+  },
+
+  projets:() => `<div class="grid">${PROJETS.map(p => `<button class="icon" data-proj="${p.id}">${pix("doc")}<span>${p.name}</span></button>`).join("")}</div>`,
+
+  competences:() => `<h2>Compétences</h2><table class="kv">${COMPETENCES.map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("")}</table>
+    <p class="small" style="margin-top:14px">Dans chaque ligne, les technologies citées en premier sont celles que j'utilise le plus.</p>`,
+
+  contact:() => `<h2>Me joindre</h2>
+    <div class="fields">
+      <span>E-mail</span><span class="v">${ME.email}</span>
+      <span>Téléphone</span><span class="v">${ME.phone}</span>
+      <span>LinkedIn</span><span class="v"><a href="${ME.linkedin}" target="_blank" rel="noopener">in/ryad-senhadji-77ab50255</a></span>
+      <span>GitHub</span><span class="v"><a href="${ME.github}" target="_blank" rel="noopener">dayr20</a></span>
+      <span>GitLab</span><span class="v"><a href="${ME.gitlab}" target="_blank" rel="noopener">Senry</a></span>
+    </div>
+    <div class="btns">
+      <a class="btn default" href="mailto:${ME.email}?subject=${encodeURIComponent("Alternance")}">Écrire un e-mail</a>
+      <button class="btn" data-copy>Copier l'adresse</button>
+    </div>`,
+
+  cv:() => `<div class="pdf"><div class="bar2"><a class="btn default" href="${ME.pdf}" download>Télécharger</a><a class="btn" href="${ME.pdf}" target="_blank" rel="noopener">Ouvrir dans un onglet</a></div><iframe src="${ME.pdf}" title="CV de Ryad Senhadji (PDF)"></iframe></div>`,
+
+  terminal:() => `<div class="term-out"></div><div class="term-in"><span>ryad@cv&nbsp;%</span><input aria-label="Commande" autocomplete="off" autocapitalize="off" spellcheck="false"></div>`,
+
+  corbeille:() => `<div style="display:grid;place-items:center;height:100%;color:var(--grey)">La corbeille est vide.</div>`,
+};
+const INFO = {
+  projets:() => `<span>${PROJETS.length} éléments</span><span>~/projets</span>`,
+  parcours:() => `<span>${PARCOURS.filter(p => !p.group).length} éléments</span><span>cliquez sur une ligne pour la déplier</span>`,
+};
+
+const layer = document.getElementById("windows");
+const wins = {}; let z = 10, cascade = 0;
+const isMobile = () => matchMedia("(max-width:720px)").matches;
+
+function openWin(id, opts={}){
+  if(wins[id]){ activate(wins[id]); return wins[id]; }
+  const app = opts.app || APPS[id];
+  const w = document.createElement("section");
+  w.className = "win " + (app.cls || ""); w.dataset.id = id;
+  w.setAttribute("role","dialog"); w.setAttribute("aria-label", app.title);
+  const vw = innerWidth, vh = innerHeight;
+  const W = Math.min(app.w, vw - 140), H = Math.min(app.h, vh - 60);
+  const step = cascade++ % 7;
+  w.style.width = W + "px"; w.style.height = H + "px";
+  w.style.left = Math.max(12, Math.min(vw - W - 120, 40 + step * 70 + (vw - W - 160) / 5)) + "px";
+  w.style.top  = Math.max(34, Math.min(vh - H - 12, 44 + step * 34)) + "px";
+  w.innerHTML = `<div class="tb"><button class="box close" aria-label="Fermer"></button><span class="title">${app.title}</span><button class="box zoom" aria-label="Agrandir"></button></div>
+    ${INFO[id] ? `<div class="info">${INFO[id]()}</div>` : ""}
+    <div class="content ${app.pad ? "pad" : ""}">${opts.html || RENDER[id]()}</div><div class="grow"></div>`;
+  layer.appendChild(w); wins[id] = w;
+
+  w.querySelector(".close").onclick = e => { e.stopPropagation(); closeWin(id); };
+  w.querySelector(".zoom").onclick = e => { e.stopPropagation(); toggleZoom(w); };
+  w.addEventListener("pointerdown", () => activate(w));
+  drag(w); resize(w); wire(w);
+  if(id === "terminal") initTerm(w);
+  activate(w);
+  return w;
+}
+function closeWin(id){ const w = wins[id]; if(!w) return; w.remove(); delete wins[id]; activateTop(); }
+function activate(w){
+  if(!w.classList.contains("active")){
+    document.querySelectorAll(".win.active").forEach(x => x.classList.remove("active"));
+    w.style.zIndex = ++z; w.classList.add("active");
   }
-};</code></pre>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="mouse-wheel"></div>
-            </div>
-            <span>Scroll</span>
-        </div>
-    </section>
+  if(w.dataset.id === "terminal") setTimeout(() => w.querySelector("input")?.focus({preventScroll:true}), 0);
+}
+function activateTop(){
+  const top = [...document.querySelectorAll(".win")].sort((a,b) => b.style.zIndex - a.style.zIndex)[0];
+  if(top) activate(top);
+}
+function toggleZoom(w){
+  if(w._prev){ Object.assign(w.style, w._prev); w._prev = null; return; }
+  w._prev = { left:w.style.left, top:w.style.top, width:w.style.width, height:w.style.height };
+  Object.assign(w.style, { left:"8px", top:"30px", width:(innerWidth - 16) + "px", height:(innerHeight - 38) + "px" });
+}
+function drag(w){
+  const bar = w.querySelector(".tb");
+  bar.addEventListener("dblclick", e => { if(!e.target.closest(".box")) toggleZoom(w); });
+  bar.addEventListener("pointerdown", e => {
+    if(e.target.closest(".box") || isMobile()) return;
+    const sx = e.clientX, sy = e.clientY, ox = w.offsetLeft, oy = w.offsetTop;
+    bar.setPointerCapture(e.pointerId);
+    // Pendant le déplacement, seul un contour pointillé suit la souris, comme sur les vieux systèmes.
+    const ghost = document.createElement("div");
+    Object.assign(ghost.style, { position:"fixed", left:ox+"px", top:oy+"px", width:w.offsetWidth+"px", height:w.offsetHeight+"px", outline:"1px dotted #000", zIndex:7000, pointerEvents:"none" });
+    let moved = false;
+    const move = ev => {
+      if(!moved){ document.body.appendChild(ghost); moved = true; }
+      ghost.style.left = Math.min(innerWidth - 60, Math.max(-w.offsetWidth + 60, ox + ev.clientX - sx)) + "px";
+      ghost.style.top  = Math.min(innerHeight - 24, Math.max(22, oy + ev.clientY - sy)) + "px";
+    };
+    const up = () => {
+      if(moved){ w.style.left = ghost.style.left; w.style.top = ghost.style.top; ghost.remove(); }
+      bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", up);
+    };
+    bar.addEventListener("pointermove", move); bar.addEventListener("pointerup", up);
+  });
+}
+function resize(w){
+  const g = w.querySelector(".grow");
+  g.addEventListener("pointerdown", e => {
+    e.stopPropagation(); activate(w); g.setPointerCapture(e.pointerId);
+    const sx = e.clientX, sy = e.clientY, ow = w.offsetWidth, oh = w.offsetHeight;
+    const move = ev => { w.style.width = Math.max(260, ow + ev.clientX - sx) + "px"; w.style.height = Math.max(140, oh + ev.clientY - sy) + "px"; };
+    const up = () => { g.removeEventListener("pointermove", move); g.removeEventListener("pointerup", up); };
+    g.addEventListener("pointermove", move); g.addEventListener("pointerup", up);
+  });
+}
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="section-number">01.</span> A propos de moi
-            </h2>
-            <div class="about-grid">
-                <div class="about-image-container">
-                    <div class="about-image">
-                        <img src="https://avatars.githubusercontent.com/u/115942138?v=4" alt="Ryad Senhadji" loading="lazy">
-                        <div class="about-image-border"></div>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <p>
-                        Salut ! Je suis <strong>Ryad Senhadji</strong>, d&eacute;veloppeur Full Stack
-                        passionn&eacute; par la technologie et l'innovation. Actuellement en Master 1
-                        D&eacute;veloppeur Full Stack &agrave; l'ENSITECH, je conçois des applications
-                        web modernes et performantes.
-                    </p>
-                    <p>
-                        Mon parcours m'a permis d'explorer un large &eacute;ventail de technologies :
-                        du backend Java/Spring Boot au frontend React/TypeScript, en passant par
-                        PHP/Symfony, C#/.NET MAUI et Node.js. J'aime relever des d&eacute;fis techniques
-                        et cr&eacute;er des solutions qui font la diff&eacute;rence.
-                    </p>
-                    <p>
-                        Fort de mes exp&eacute;riences en entreprise chez Les Forges du Web et Worldline,
-                        je ma&icirc;trise le travail en &eacute;quipe agile et le d&eacute;ploiement
-                        d'applications professionnelles.
-                    </p>
-                    <div class="about-details">
-                        <div class="detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>France</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fas fa-envelope"></i>
-                            <span>ryadsenhadjii@gmail.com</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fab fa-github"></i>
-                            <span>github.com/dayr20</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fab fa-gitlab"></i>
-                            <span>gitlab.com/Senry</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fab fa-linkedin-in"></i>
-                            <span>LinkedIn</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>Master 1 Full Stack</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* Interactions à l'intérieur des fenêtres */
+function wire(root){
+  root.querySelectorAll("[data-open]").forEach(b => b.onclick = () => openWin(b.dataset.open));
+  root.querySelectorAll("tr.row").forEach(tr => tr.onclick = () => {
+    const d = root.querySelector(`tr.detail[data-for="${tr.dataset.i}"]`);
+    root.querySelectorAll("tr.row.sel").forEach(x => x.classList.remove("sel"));
+    tr.classList.add("sel"); tr.classList.toggle("open"); d.hidden = !d.hidden;
+  });
+  root.querySelectorAll("[data-proj]").forEach(b => setupIcon(b, () => openProject(b.dataset.proj), root));
+  const copy = root.querySelector("[data-copy]");
+  if(copy) copy.onclick = () => {
+    const done = t => { copy.textContent = t; setTimeout(() => copy.textContent = "Copier l'adresse", 1800); };
+    navigator.clipboard ? navigator.clipboard.writeText(ME.email).then(() => done("Adresse copiée"), () => done(ME.email)) : done(ME.email);
+  };
+}
+function openProject(id){
+  const p = PROJETS.find(x => x.id === id);
+  return openWin("p-" + id, { app:{ title:p.name, w:500, h:400, pad:true }, html:`
+    <h1>${p.name}</h1>${p.tag ? `<p class="small">${p.tag}</p>` : ""}
+    <hr class="dots">
+    <p>${p.text}</p><p>${p.detail}</p>
+    <h2>Technologies</h2><p>${p.stack}</p>
+    <p class="small" style="margin-top:18px">Code : <a href="${ME.github}" target="_blank" rel="noopener">github.com/dayr20</a></p>` });
+}
 
-    <!-- Experience Section -->
-    <section class="section section-alt" id="experience">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="section-number">02.</span> Exp&eacute;rience Professionnelle
-            </h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>D&eacute;veloppeur Web - Stage</h3>
-                            <span class="timeline-date">Mars 2025 - Juillet 2025</span>
-                        </div>
-                        <p class="timeline-company"><i class="fas fa-building"></i> Les Forges du Web</p>
-                        <ul class="timeline-list">
-                            <li>Migration d'un projet Symfony vers une version plus r&eacute;cente</li>
-                            <li>Mise en place d'un syst&egrave;me de cache pour am&eacute;liorer les performances</li>
-                            <li>D&eacute;veloppement d'un moteur de recherche interne</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span>Symfony</span>
-                            <span>PHP</span>
-                            <span>Cache</span>
-                            <span>SEO</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Stagiaire IT</h3>
-                            <span class="timeline-date">Nov. 2019 - Janv. 2020</span>
-                        </div>
-                        <p class="timeline-company"><i class="fas fa-building"></i> Worldline</p>
-                        <ul class="timeline-list">
-                            <li>D&eacute;veloppement de pages web en HTML/CSS</li>
-                            <li>Installation et configuration de syst&egrave;mes Raspberry Pi</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>Raspberry Pi</span>
-                            <span>Linux</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* ============ Bureau ============ */
+function setupIcon(el, action, scope){
+  el.addEventListener("click", e => {
+    e.stopPropagation();
+    scope.querySelectorAll(".icon.sel").forEach(x => x.classList.remove("sel"));
+    el.classList.add("sel");
+    if(isMobile()) action();
+  });
+  el.addEventListener("dblclick", action);
+  el.addEventListener("keydown", e => { if(e.key === "Enter") action(); });
+}
+const iconsEl = document.getElementById("icons");
+DESK.forEach(([id,label]) => {
+  const b = document.createElement("button");
+  b.className = "icon"; b.innerHTML = pix(APPS[id].icon) + `<span>${label}</span>`;
+  setupIcon(b, () => openWin(id), iconsEl);
+  iconsEl.appendChild(b);
+});
 
-    <!-- Education Section -->
-    <section class="section" id="education">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="section-number">03.</span> Formation
-            </h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Master 1 - D&eacute;veloppeur Full Stack</h3>
-                            <span class="timeline-date">2024 - 2025</span>
-                        </div>
-                        <p class="timeline-company"><i class="fas fa-university"></i> ENSITECH</p>
-                        <p class="timeline-desc">Formation approfondie en d&eacute;veloppement web Full Stack, architecture logicielle, m&eacute;thodologies agiles et DevOps.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Bachelor - D&eacute;veloppeur Full Stack</h3>
-                            <span class="timeline-date">2023 - 2024</span>
-                        </div>
-                        <p class="timeline-company"><i class="fas fa-university"></i> ENSITECH</p>
-                        <p class="timeline-desc">Fondamentaux du d&eacute;veloppement Full Stack : Java, Spring Boot, React, bases de donn&eacute;es et outils DevOps.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>BTS SNEC - Syst&egrave;mes Num&eacute;riques</h3>
-                            <span class="timeline-date">2018 - 2020</span>
-                        </div>
-                        <p class="timeline-company"><i class="fas fa-university"></i> Lyc&eacute;e Jean Jaur&egrave;s</p>
-                        <p class="timeline-desc">Option &Eacute;lectronique et Communication. Bases en programmation, &eacute;lectronique et r&eacute;seaux.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* Barre de menus */
+const fileMenu = document.getElementById("fileMenu");
+document.getElementById("logoBtn").innerHTML = pix("r", 15);
+fileMenu.querySelector("button").onclick = () => fileMenu.classList.toggle("open");
+document.querySelectorAll(".menubar [data-open]").forEach(b => b.addEventListener("click", () => { fileMenu.classList.remove("open"); openWin(b.dataset.open); }));
+fileMenu.querySelector("a").addEventListener("click", () => fileMenu.classList.remove("open"));
+document.getElementById("closeAll").onclick = () => { Object.keys(wins).forEach(closeWin); fileMenu.classList.remove("open"); };
+document.addEventListener("pointerdown", e => {
+  if(!e.target.closest(".icon")) document.querySelectorAll(".icon.sel").forEach(x => x.classList.remove("sel"));
+  if(!e.target.closest(".menu")) fileMenu.classList.remove("open");
+});
+addEventListener("keydown", e => {
+  if(e.ctrlKey && e.key === "t"){ e.preventDefault(); openWin("terminal"); }
+  if(e.key === "Escape") fileMenu.classList.remove("open");
+});
+function tick(){ document.getElementById("clock").textContent = new Date().toLocaleTimeString("fr-FR", { hour:"2-digit", minute:"2-digit" }); }
+tick(); setInterval(tick, 15000);
 
-    <!-- Skills Section -->
-    <section class="section section-alt" id="skills">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="section-number">04.</span> Comp&eacute;tences
-            </h2>
-            <div class="skills-grid skills-grid-4">
-                <div class="skill-category">
-                    <div class="skill-category-header">
-                        <div class="skill-icon-wrapper">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Langages</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
-                        <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
-                        <span class="skill-tag"><i class="fas fa-code"></i> TypeScript</span>
-                        <span class="skill-tag"><i class="fab fa-php"></i> PHP</span>
-                        <span class="skill-tag"><i class="fas fa-hashtag"></i> C#</span>
-                        <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
-                        <span class="skill-tag"><i class="fas fa-fire"></i> Kotlin</span>
-                        <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
-                        <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
-                        <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <div class="skill-category-header">
-                        <div class="skill-icon-wrapper">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                        <h3>Frameworks & Outils</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag"><i class="fas fa-leaf"></i> Spring Boot</span>
-                        <span class="skill-tag"><i class="fab fa-symfony"></i> Symfony</span>
-                        <span class="skill-tag"><i class="fab fa-react"></i> React</span>
-                        <span class="skill-tag"><i class="fab fa-angular"></i> Angular</span>
-                        <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
-                        <span class="skill-tag"><i class="fas fa-cube"></i> .NET MAUI</span>
-                        <span class="skill-tag"><i class="fas fa-wind"></i> Tailwind CSS</span>
-                        <span class="skill-tag"><i class="fas fa-file-code"></i> Thymeleaf</span>
-                        <span class="skill-tag"><i class="fas fa-book"></i> Swagger</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <div class="skill-category-header">
-                        <div class="skill-icon-wrapper">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <h3>DevOps & BDD</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag"><i class="fas fa-database"></i> PostgreSQL</span>
-                        <span class="skill-tag"><i class="fas fa-database"></i> MySQL</span>
-                        <span class="skill-tag"><i class="fas fa-leaf"></i> MongoDB</span>
-                        <span class="skill-tag"><i class="fas fa-database"></i> SQLite</span>
-                        <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
-                        <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
-                        <span class="skill-tag"><i class="fab fa-gitlab"></i> GitLab CI</span>
-                        <span class="skill-tag"><i class="fas fa-terminal"></i> Linux</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <div class="skill-category-header">
-                        <div class="skill-icon-wrapper">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h3>M&eacute;thodologies</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag"><i class="fas fa-sync"></i> Agile / Scrum</span>
-                        <span class="skill-tag"><i class="fas fa-project-diagram"></i> MVVM / MVC</span>
-                        <span class="skill-tag"><i class="fas fa-key"></i> JWT / Auth</span>
-                        <span class="skill-tag"><i class="fas fa-vial"></i> Tests unitaires</span>
-                        <span class="skill-tag"><i class="fas fa-code-branch"></i> CI/CD</span>
-                        <span class="skill-tag"><i class="fas fa-users"></i> Travail d'&eacute;quipe</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* Boîte d'alerte */
+function alertBox(msg, okLabel, onOk){
+  const m = document.createElement("div"); m.className = "modal";
+  m.innerHTML = `<div class="alert" role="alertdialog"><div>${pix("alert")}<div><p>${msg}</p>
+    <div class="btns"><button class="btn" data-x>Annuler</button><button class="btn default" data-ok>${okLabel}</button></div></div></div></div>`;
+  document.body.appendChild(m);
+  m.querySelector("[data-x]").onclick = () => m.remove();
+  m.querySelector("[data-ok]").onclick = () => { m.remove(); onOk(); };
+  // Pas de focus automatique : la touche Entrée qui a lancé la commande validerait la boîte aussitôt.
+}
 
-    <!-- Projects Section -->
-    <section class="section" id="projects">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="section-number">05.</span> Mes Projets
-            </h2>
-            <div class="projects-grid">
-                <!-- Project 1 - CookWithMe (Featured) -->
-                <article class="project-card featured">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-utensils"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/dayr20/cookwithme" target="_blank" class="project-link" title="Voir sur GitHub">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">CookWithMe</h3>
-                        <p class="project-description">
-                            Application communautaire de recettes de cuisine avec syst&egrave;me
-                            de gamification (badges, d&eacute;fis) et filtre anti-gaspillage.
-                            Authentification JWT, dashboard admin et g&eacute;n&eacute;ration de PDF.
-                        </p>
-                        <div class="project-tech">
-                            <span>Java</span>
-                            <span>Spring Boot</span>
-                            <span>React</span>
-                            <span>TypeScript</span>
-                            <span>PostgreSQL</span>
-                        </div>
-                        <div class="project-badge">
-                            <i class="fas fa-star"></i> Projet Master 1
-                        </div>
-                    </div>
-                </article>
+/* ============ Terminal ============ */
+function initTerm(w){
+  const out = w.querySelector(".term-out"), input = w.querySelector("input"), body = w.querySelector(".content");
+  const hist = []; let hi = 0;
+  const say = (s = "") => { const d = document.createElement("div"); d.innerHTML = s; out.appendChild(d); body.scrollTop = body.scrollHeight; };
+  const k = c => `<span class="k" data-c="${c}">${c}</span>`;
 
-                <!-- Project 2 - Pokedex -->
-                <article class="project-card featured">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-dragon"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/dayr20/pokedex" target="_blank" class="project-link" title="Voir sur GitHub">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Pok&eacute;dex</h3>
-                        <p class="project-description">
-                            Pok&eacute;dex interactif et complet avec 1025 Pok&eacute;mon.
-                            &Eacute;volutions, attaques, variantes shiny, filtres par type/g&eacute;n&eacute;ration,
-                            syst&egrave;me de favoris et th&egrave;me sombre/clair.
-                        </p>
-                        <div class="project-tech">
-                            <span>Java 21</span>
-                            <span>Spring Boot</span>
-                            <span>Thymeleaf</span>
-                            <span>Pok&eacute;API</span>
-                        </div>
-                        <div class="project-badge">
-                            <i class="fas fa-star"></i> 1025 Pok&eacute;mon
-                        </div>
-                    </div>
-                </article>
+  const map = {
+    aide:() => say(`Commandes :
+  ${k("qui")}            présentation courte
+  ${k("parcours")}       expériences et formation
+  ${k("projets")}        liste des projets, puis : projet &lt;nom&gt;
+  ${k("competences")}    compétences
+  ${k("contact")}        coordonnées
+  ${k("cv")}             ouvrir le CV en PDF
+  ${k("ls")}  ${k("clear")}
 
-                <!-- Project 3 - MangaZone -->
-                <article class="project-card featured">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-book-reader"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="#" class="project-link" title="Projet priv&eacute;">
-                                    <i class="fas fa-lock"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">MangaZone</h3>
-                        <p class="project-description">
-                            Plateforme de gestion de collection de mangas. Application web
-                            progressive (PWA) avec interface responsive, syst&egrave;me de suivi
-                            de lecture et recommandations.
-                        </p>
-                        <div class="project-tech">
-                            <span>PHP</span>
-                            <span>Symfony</span>
-                            <span>MySQL</span>
-                            <span>PWA</span>
-                        </div>
-                        <div class="project-badge">
-                            <i class="fas fa-star"></i> Progressive Web App
-                        </div>
-                    </div>
-                </article>
+↑ et ↓ pour l'historique, Tab pour compléter.`),
+    qui:() => say(`Ryad Senhadji, développeur full stack. M2 à ENSITECH.
+Alternance au Croissant Doré (2026), stage chez Les Forges du Web (2025).
+Java / Spring Boot, PHP / Symfony, React / TypeScript, Python.
+Paris 7e. <span class="inv">Cherche une alternance de 12 mois, dès que possible.</span>`),
+    parcours:() => PARCOURS.forEach(p => say(p.group ? `\n<span class="inv">${p.group}</span>` : `${p.when.padEnd(20)}${p.name} — ${p.where}`)),
+    projets:() => PROJETS.forEach(p => say(`${k("projet " + p.id)}${" ".repeat(Math.max(1, 22 - p.id.length))}${p.name}`)),
+    projet:(a) => {
+      const p = PROJETS.find(x => x.id === a || x.name.toLowerCase() === a);
+      if(!p) return say(`projet introuvable : ${esc(a) || "?"}. Tapez ${k("projets")}.`);
+      say(`<span class="inv">${p.name}</span>${p.tag ? "  (" + p.tag + ")" : ""}\n${p.text}\n${p.detail}\nStack : ${p.stack}`);
+    },
+    competences:() => COMPETENCES.forEach(([a,b]) => say(`${a.padEnd(12)}${b}`)),
+    contact:() => say(`e-mail     <a href="mailto:${ME.email}">${ME.email}</a>
+tél.       ${ME.phone}
+linkedin   <a href="${ME.linkedin}" target="_blank" rel="noopener">in/ryad-senhadji-77ab50255</a>
+github     <a href="${ME.github}" target="_blank" rel="noopener">dayr20</a>`),
+    cv:() => { openWin("cv"); say("ouverture de CV_Ryad_Senhadji.pdf"); },
+    ls:() => say(`Lisez-moi   Parcours/   Projets/   Compétences   Contact   CV.pdf`),
+    clear:() => { out.innerHTML = ""; },
+    sudo:(a) => {
+      if(a.startsWith("embauche") || a.startsWith("hire")){
+        say("Mot de passe : ********");
+        alertBox("Mot de passe accepté.<br>Ouvrir un e-mail pour proposer un entretien à Ryad ?", "Écrire",
+          () => location.href = `mailto:${ME.email}?subject=${encodeURIComponent("Entretien pour une alternance")}`);
+      } else say("sudo : permission refusée.");
+    },
+    exit:() => closeWin("terminal"),
+  };
+  const OPEN = { parcours:"parcours", projets:"projets", competences:"competences", contact:"contact", cv:"cv", "lisez-moi":"readme" };
+  Object.assign(map, { help:map.aide, whoami:map.qui, skills:map.competences, "compétences":map.competences, projects:map.projets, project:map.projet,
+    open:(a) => OPEN[a] ? openWin(OPEN[a]) : say("open : introuvable") });
 
-                <!-- Project 4 - MusicAlbumExplorer -->
-                <article class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-music"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="#" class="project-link" title="Projet priv&eacute;">
-                                    <i class="fas fa-lock"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">MusicAlbumExplorer</h3>
-                        <p class="project-description">
-                            Application desktop d'exploration d'albums musicaux.
-                            Architecture MVVM, consommation d'APIs musicales
-                            et interface native multiplateforme.
-                        </p>
-                        <div class="project-tech">
-                            <span>C#</span>
-                            <span>.NET MAUI</span>
-                            <span>MVVM</span>
-                            <span>API REST</span>
-                        </div>
-                    </div>
-                </article>
+  function run(line){
+    say(`ryad@cv % ${esc(line)}`);
+    line = line.trim(); if(!line) return;
+    hist.push(line); hi = hist.length;
+    const [c, ...rest] = line.split(/\s+/);
+    const fn = map[c.toLowerCase()];
+    fn ? fn(rest.join(" ").toLowerCase()) : say(`${esc(c)} : commande inconnue. Tapez ${k("aide")}.`);
+  }
+  input.addEventListener("keydown", e => {
+    if(e.key === "Enter"){ run(input.value); input.value = ""; }
+    else if(e.key === "ArrowUp"){ e.preventDefault(); if(hi > 0) input.value = hist[--hi]; }
+    else if(e.key === "ArrowDown"){ e.preventDefault(); hi = Math.min(hist.length, hi + 1); input.value = hist[hi] || ""; }
+    else if(e.key === "Tab"){ e.preventDefault(); const v = input.value.toLowerCase(); const m = Object.keys(map).filter(x => x.startsWith(v)); if(m.length === 1) input.value = m[0] + " "; else if(m.length) say(m.join("  ")); }
+  });
+  body.addEventListener("click", e => {
+    const l = e.target.closest(".k"); if(l) return run(l.dataset.c);
+    if(!getSelection().toString()) input.focus();
+  });
+  say(`Dernière connexion : ${new Date().toLocaleDateString("fr-FR")}\nTapez ${k("aide")} pour la liste des commandes.\n`);
+}
 
-                <!-- Project 5 - E-Commerce V1 -->
-                <article class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="#" class="project-link" title="Projet priv&eacute;">
-                                    <i class="fas fa-lock"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">E-Commerce V1</h3>
-                        <p class="project-description">
-                            Plateforme e-commerce compl&egrave;te avec gestion de produits,
-                            panier, authentification s&eacute;curis&eacute;e Spring Security
-                            et syst&egrave;me de commandes.
-                        </p>
-                        <div class="project-tech">
-                            <span>Java</span>
-                            <span>Spring Security</span>
-                            <span>MySQL</span>
-                            <span>Thymeleaf</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 6 - Energie Suivi -->
-                <article class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://gitlab.com/Senry/energiesuivi" target="_blank" class="project-link" title="Voir sur GitLab">
-                                    <i class="fab fa-gitlab"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Energie Suivi</h3>
-                        <p class="project-description">
-                            Application web de suivi de consommation &eacute;nerg&eacute;tique.
-                            API REST avec authentification JWT, tableaux de bord
-                            interactifs et conteneurisation Docker.
-                        </p>
-                        <div class="project-tech">
-                            <span>Node.js</span>
-                            <span>Express</span>
-                            <span>SQLite</span>
-                            <span>Docker</span>
-                            <span>JWT</span>
-                        </div>
-                        <div class="project-badge">
-                            <i class="fab fa-gitlab"></i> H&eacute;berg&eacute; sur GitLab
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 7 - Bibliotheque -->
-                <article class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-book-open"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/dayr20/bibliotheque" target="_blank" class="project-link" title="Voir sur GitHub">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Biblioth&egrave;que</h3>
-                        <p class="project-description">
-                            Application web de gestion de biblioth&egrave;que d&eacute;velopp&eacute;e avec
-                            le framework Symfony. Interface Twig, conteneurisation Docker
-                            et pipeline CI/CD int&eacute;gr&eacute;.
-                        </p>
-                        <div class="project-tech">
-                            <span>PHP</span>
-                            <span>Symfony</span>
-                            <span>Twig</span>
-                            <span>Docker</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 8 - Swot -->
-                <article class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/dayr20/swot" target="_blank" class="project-link" title="Voir sur GitHub">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Swot</h3>
-                        <p class="project-description">
-                            Outil d'identification d'adresses email et de noms de domaines
-                            appartenant &agrave; des universit&eacute;s. Automatisation du processus
-                            de validation de r&eacute;ductions acad&eacute;miques.
-                        </p>
-                        <div class="project-tech">
-                            <span>Kotlin</span>
-                            <span>Validation</span>
-                            <span>Open Source</span>
-                        </div>
-                        <div class="project-badge">
-                            <i class="fas fa-code-fork"></i> Fork de JetBrains
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 9 - Portfolio -->
-                <article class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-globe"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/dayr20" target="_blank" class="project-link" title="Voir sur GitHub">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Portfolio Personnel</h3>
-                        <p class="project-description">
-                            Mon portfolio personnel construit avec HTML, CSS et JavaScript vanilla.
-                            Design moderne avec animations fluides, mode sombre et particules interactives.
-                        </p>
-                        <div class="project-tech">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section section-alt" id="contact">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="section-number">06.</span> Contact
-            </h2>
-            <div class="contact-content">
-                <div class="contact-text">
-                    <h3>Travaillons ensemble !</h3>
-                    <p>
-                        Vous avez un projet int&eacute;ressant ou une opportunit&eacute; de collaboration ?
-                        N'h&eacute;sitez pas &agrave; me contacter. Je suis toujours ouvert &agrave; de nouvelles
-                        discussions et id&eacute;es.
-                    </p>
-                </div>
-                <div class="contact-links">
-                    <a href="mailto:ryadsenhadjii@gmail.com" class="contact-card">
-                        <div class="contact-card-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-card-info">
-                            <span class="contact-card-label">Email</span>
-                            <span class="contact-card-value">ryadsenhadjii@gmail.com</span>
-                        </div>
-                        <i class="fas fa-arrow-right contact-card-arrow"></i>
-                    </a>
-                    <a href="https://github.com/dayr20" target="_blank" class="contact-card">
-                        <div class="contact-card-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <div class="contact-card-info">
-                            <span class="contact-card-label">GitHub</span>
-                            <span class="contact-card-value">dayr20</span>
-                        </div>
-                        <i class="fas fa-arrow-right contact-card-arrow"></i>
-                    </a>
-                    <a href="https://gitlab.com/Senry" target="_blank" class="contact-card">
-                        <div class="contact-card-icon">
-                            <i class="fab fa-gitlab"></i>
-                        </div>
-                        <div class="contact-card-info">
-                            <span class="contact-card-label">GitLab</span>
-                            <span class="contact-card-value">Senry</span>
-                        </div>
-                        <i class="fas fa-arrow-right contact-card-arrow"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/ryad-senhadji-77ab50255/" target="_blank" class="contact-card">
-                        <div class="contact-card-icon">
-                            <i class="fab fa-linkedin-in"></i>
-                        </div>
-                        <div class="contact-card-info">
-                            <span class="contact-card-label">LinkedIn</span>
-                            <span class="contact-card-value">Ryad Senhadji</span>
-                        </div>
-                        <i class="fas fa-arrow-right contact-card-arrow"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    <span class="footer-code">&lt;</span>
-                    Con&ccedil;u & D&eacute;velopp&eacute; par <strong>Ryad Senhadji</strong>
-                    <span class="footer-code">/&gt;</span>
-                </p>
-                <div class="footer-social">
-                    <a href="https://github.com/dayr20" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://gitlab.com/Senry" target="_blank" aria-label="GitLab">
-                        <i class="fab fa-gitlab"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/ryad-senhadji-77ab50255/" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="mailto:ryadsenhadjii@gmail.com" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-                <p class="footer-year">&copy; 2026 Ryad Senhadji. Tous droits r&eacute;serv&eacute;s.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+/* ============ Démarrage ============ */
+document.getElementById("splashIcon").innerHTML = pix("r", 40);
+const splash = document.getElementById("splash");
+let started = false;
+function start(){
+  if(started) return; started = true;
+  splash.classList.add("off"); setTimeout(() => splash.remove(), 250);
+  openWin("readme");
+}
+const splashBar = document.getElementById("splashBar");
+requestAnimationFrame(() => requestAnimationFrame(() => splashBar.style.width = "100%"));
+setTimeout(start, 1300);
+splash.addEventListener("click", start);
+</script>
 </body>
 </html>
