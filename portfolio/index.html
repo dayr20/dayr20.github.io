@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio — Ryad Senhadji</title>
+<meta name="description" content="Projets de Ryad Senhadji, développeur full stack : Spring Boot, Symfony, React, Python.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#000; --paper:#fff; --grey:#6b6b6b;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --pix:'Silkscreen',var(--mono);
+  --menu-h:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:40px}
+body{
+  font:14px/1.6 var(--mono);color:var(--ink);background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3C/svg%3E");
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+::selection{background:var(--ink);color:var(--paper)}
+html::-webkit-scrollbar{width:16px}
+html::-webkit-scrollbar-track{border-left:1px solid var(--ink);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2' shape-rendering='crispEdges'%3E%3Crect width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3C/svg%3E")}
+html::-webkit-scrollbar-thumb{background:var(--paper);border:1px solid var(--ink)}
+svg rect.b{fill:var(--ink)} svg rect.w{fill:var(--paper)}
+
+/* ---------- Barre de menus ---------- */
+.menubar{position:fixed;top:0;left:0;right:0;height:var(--menu-h);background:var(--paper);border-bottom:1px solid var(--ink);display:flex;align-items:stretch;z-index:100;font-weight:600;font-size:12.5px}
+.menubar a{display:flex;align-items:center;padding:0 10px;text-decoration:none}
+.menubar a:hover,.menubar a.on{background:var(--ink);color:var(--paper)}
+.menubar a:hover rect.b{fill:var(--paper)} .menubar a:hover rect.w{fill:var(--ink)}
+.menubar .spacer{flex:1}
+.menubar .status{display:flex;align-items:center;gap:7px;padding:0 12px;font-weight:400}
+.menubar .status i{width:7px;height:7px;background:var(--ink);animation:blink 1.2s steps(1) infinite}
+@keyframes blink{50%{background:transparent;outline:1px solid var(--ink);outline-offset:-1px}}
+
+/* ---------- Mise en page ---------- */
+main{max-width:1000px;margin:0 auto;padding:calc(var(--menu-h) + 40px) 24px 80px}
+.win{background:var(--paper);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);margin-bottom:44px}
+.tb{position:relative;height:22px;border-bottom:1px solid var(--ink);display:flex;align-items:center;justify-content:center;cursor:default;user-select:none}
+.tb::before{content:"";position:absolute;inset:4px 3px;background:repeating-linear-gradient(to bottom,var(--ink) 0 1px,transparent 1px 2px)}
+.tb .title{position:relative;background:var(--paper);padding:0 10px;font-weight:600;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 80px)}
+.tb button{position:absolute;right:9px;top:5px;width:12px;height:12px;border:1px solid var(--ink);background:var(--paper);cursor:default}
+.tb button::after{content:"";position:absolute;left:1px;right:1px;top:3px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);height:2px}
+.tb button:active{background:var(--ink)}
+.win.shade > :not(.tb){display:none}
+.win.shade .tb{border-bottom:0}
+.body{padding:28px 32px}
+.info{display:flex;justify-content:space-between;gap:12px;padding:2px 12px;border-bottom:1px solid var(--ink);font-size:12px;box-shadow:0 2px 0 var(--paper),0 3px 0 var(--ink);margin-bottom:3px}
+
+h1,h2,h3{font-family:var(--pix);font-weight:400;line-height:1.1}
+h1{font-size:clamp(30px,6vw,52px);letter-spacing:.01em}
+h2{font-size:24px;margin-bottom:6px}
+h3{font-size:14px;margin:24px 0 8px}
+p + p{margin-top:10px}
+.lead{font-size:16px;line-height:1.55;max-width:60ch}
+.small{font-size:12px;color:var(--grey)}
+hr.dots{border:0;border-top:1px dotted var(--ink);margin:22px 0}
+ul.dash{list-style:none}
+ul.dash li{padding-left:20px;position:relative;margin:3px 0}
+ul.dash li::before{content:"—";position:absolute;left:0}
+
+.btns{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:24px}
+.btn{display:inline-block;padding:4px 18px;border:1px solid var(--ink);border-radius:7px;background:var(--paper);text-decoration:none;font-weight:600;font-size:13px}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.default{box-shadow:0 0 0 2px var(--paper),0 0 0 5px var(--ink)}
+
+/* En-tête */
+.hero{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start}
+.hero .sub{font-family:var(--pix);font-size:15px;margin:10px 0 20px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);margin-top:26px}
+.facts div{padding:10px 14px;border-right:1px solid var(--ink)}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font-family:var(--pix);font-weight:400;font-size:22px;line-height:1.2}
+.facts span{font-size:12px}
+.portrait{width:150px;border:1px solid var(--ink);padding:8px;background:var(--paper)}
+.portrait .screen{aspect-ratio:1;border:1px solid var(--ink);display:grid;place-items:center;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2' shape-rendering='crispEdges'%3E%3Crect width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3C/svg%3E")}
+.portrait .screen span{background:var(--paper);border:1px solid var(--ink);padding:8px;line-height:0}
+.portrait p{font-size:11px;text-align:center;margin-top:6px}
+
+/* Index */
+.list{width:100%;border-collapse:collapse;font-size:13px}
+.list th{font-weight:400;text-align:left;padding:4px 10px;border-bottom:1px solid var(--ink);font-size:12px}
+.list td{padding:5px 10px;vertical-align:top}
+.list tr.r{cursor:pointer}
+.list tr.r:hover td{background:var(--ink);color:var(--paper)}
+.list td.n{font-family:var(--pix);width:44px}
+.list a{text-decoration:none}
+
+/* Fiches projet */
+.proj{display:grid;grid-template-columns:220px 1fr;gap:36px}
+.art{border:1px solid var(--ink);padding:8px;align-self:start}
+.art .screen{aspect-ratio:1;border:1px solid var(--ink);display:grid;place-items:center;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3C/svg%3E")}
+.art .screen span{background:var(--paper);border:1px solid var(--ink);padding:14px;line-height:0;box-shadow:2px 2px 0 var(--ink)}
+.meta{margin-top:12px;font-size:12px;border-collapse:collapse;width:100%}
+.meta td{padding:4px 0;border-top:1px dotted var(--ink);vertical-align:top}
+.meta td:first-child{color:var(--grey);padding-right:10px;white-space:nowrap}
+.num{font-family:var(--pix);font-size:13px}
+.stack{display:flex;flex-wrap:wrap;gap:0;margin-top:6px;border-left:1px solid var(--ink);border-top:1px solid var(--ink)}
+.stack span{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:2px 9px;font-size:12px}
+
+/* Expérience */
+.xp{display:grid;grid-template-columns:170px 1fr;gap:6px 28px;padding:20px 0;border-top:1px dotted var(--ink)}
+.xp:first-of-type{border-top:0;padding-top:4px}
+.xp .when{font-size:12.5px}
+.xp .when b{display:block;font-family:var(--pix);font-weight:400;font-size:14px;margin-bottom:2px}
+
+/* Contact */
+.fields{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;align-items:baseline;max-width:560px}
+.fields .v{border-bottom:1px solid var(--ink);padding:0 2px;word-break:break-all}
+
+footer{text-align:center;font-size:12px}
+footer span{background:var(--paper);padding:2px 8px;border:1px solid var(--ink)}
+
+@media (max-width:760px){
+  main{padding:calc(var(--menu-h) + 20px) 12px 50px}
+  .menubar .hide-sm{display:none}
+  .menubar a{padding:0 7px}
+  .body{padding:20px 18px}
+  .hero{grid-template-columns:1fr}
+  .portrait{display:none}
+  .facts{grid-template-columns:1fr}
+  .facts div{border-right:0;border-bottom:1px solid var(--ink)}
+  .facts div:last-child{border-bottom:0}
+  .proj{grid-template-columns:1fr;gap:20px}
+  .art{max-width:150px}
+  .art .screen span{padding:8px}
+  .art svg{width:64px;height:64px}
+  .xp{grid-template-columns:1fr}
+  .fields{grid-template-columns:1fr;gap:2px}
+  .fields > span:nth-child(odd){margin-top:8px;color:var(--grey);font-size:12px}
+  .list .hide-sm{display:none}
+  .win{margin-bottom:28px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="menubar">
+  <a href="../" aria-label="Retour au CV interactif" data-pix="r" data-size="15"></a>
+  <a href="#projets">Projets</a>
+  <a href="#experience">Expérience</a>
+  <a href="#contact">Contact</a>
+  <a href="../" class="hide-sm">CV interactif</a>
+  <span class="spacer"></span>
+  <span class="status hide-sm"><i></i>Alternance 12 mois · dès que possible</span>
+</nav>
+
+<main>
+
+  <!-- En-tête -->
+  <section class="win" id="top">
+    <div class="tb"><span class="title">Portfolio</span><button aria-label="Replier"></button></div>
+    <div class="body hero">
+      <div>
+        <h1>Ryad Senhadji</h1>
+        <div class="sub">Développeur full stack</div>
+        <p class="lead">Je construis des applications web complètes : l'API, l'interface, la base de données et le déploiement. Je suis en M2 à ENSITECH et je cherche une alternance de 12 mois, dès que possible.</p>
+        <p style="margin-top:12px">Voici les projets dont je suis le plus content, avec ce qu'ils font, comment ils sont construits et le lien vers le code.</p>
+        <div class="facts">
+          <div><b>8 mois</b><span>d'alternance, en autonomie</span></div>
+          <div><b>5 mois</b><span>de stage en agence web</span></div>
+          <div><b>${N}</b><span>projets détaillés ici</span></div>
+        </div>
+        <div class="btns">
+          <a class="btn default" href="#contact">Me contacter</a>
+          <a class="btn" href="../CV_Ryad_Senhadji.pdf" download>Télécharger le CV</a>
+        </div>
+      </div>
+      <div class="portrait"><div class="screen"><span data-pix="r" data-size="56"></span></div><p>Paris 7e · permis B</p></div>
+    </div>
+  </section>
+
+  <!-- Index -->
+  <section class="win" id="projets">
+    <div class="tb"><span class="title">Projets</span><button aria-label="Replier"></button></div>
+    <div class="info"><span id="count"></span><span>cliquez sur une ligne pour aller au projet</span></div>
+    <table class="list">
+      <thead><tr><th>N°</th><th>Nom</th><th class="hide-sm">Contexte</th><th>Stack principale</th></tr></thead>
+      <tbody id="index"></tbody>
+    </table>
+  </section>
+
+  <div id="fiches"></div>
+
+  <!-- Autres projets -->
+  <section class="win">
+    <div class="tb"><span class="title">Autres projets</span><button aria-label="Replier"></button></div>
+    <div class="body">
+      <div class="xp">
+        <div class="when"><b>MusicAlbumExplorer</b>Application mobile</div>
+        <div>Une application pour parcourir des albums de musique, sur Android et les autres plateformes. Architecture MVVM avec data binding.<div class="stack"><span>C#</span><span>.NET MAUI</span><span>MVVM</span></div></div>
+      </div>
+      <div class="xp">
+        <div class="when"><b>E-commerce</b>Application web</div>
+        <div>Une boutique en ligne : catalogue, panier et comptes clients, sécurisés avec Spring Security.<div class="stack"><span>Java</span><span>Spring Boot</span><span>Spring Security</span><span>MySQL</span><span>JPA</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expérience -->
+  <section class="win" id="experience">
+    <div class="tb"><span class="title">Expérience</span><button aria-label="Replier"></button></div>
+    <div class="body">
+      <div class="xp">
+        <div class="when"><b>Le Croissant Doré</b>Alternance · Saint-Ouen<br>janv. – août 2026</div>
+        <div>
+          <p>Seul développeur, j'ai fait le site de la boutique de A à Z, puis je l'ai fait vivre pendant huit mois.</p>
+          <ul class="dash" style="margin-top:8px">
+            <li>Site vitrine écrit à la main en HTML, CSS et JavaScript, sans CMS.</li>
+            <li>Mise en ligne complète : nom de domaine, hébergement, déploiement.</li>
+            <li>Menu en ligne tenu à jour à chaque changement de carte.</li>
+            <li>Besoins recueillis directement auprès du gérant, puis traduits en choix techniques.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="xp">
+        <div class="when"><b>Les Forges du Web</b>Stage · agence web<br>mars – juil. 2025</div>
+        <div>
+          <p>Au sein de l'équipe, sur une application Symfony déjà en production.</p>
+          <ul class="dash" style="margin-top:8px">
+            <li>Montée de version de Symfony 5.4 à 6.4, sans interruption de service.</li>
+            <li>Cache mis en place pour réduire les temps de chargement.</li>
+            <li>Refonte du moteur de recherche interne : indexation et tolérance aux fautes de frappe.</li>
+            <li>Fonctionnalités et corrections de bugs, avec revues de code et livraisons régulières.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="xp">
+        <div class="when"><b>ENSITECH</b>Formation · Cergy<br>2024 – 2027</div>
+        <div>
+          <p>Bachelor puis Master développeur full stack (titre RNCP niveau 7). M2 en cours.</p>
+          <p class="small">Aussi : BTS Systèmes numériques au lycée Jean Jaurès (2021 – 2022). Certifications Cisco Python Essentials 1 et 2, JavaScript Essentials 1.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="win" id="contact">
+    <div class="tb"><span class="title">Contact</span><button aria-label="Replier"></button></div>
+    <div class="body">
+      <h2>On en parle ?</h2>
+      <p style="margin:6px 0 20px">Le plus simple est de m'écrire un e-mail.</p>
+      <div class="fields">
+        <span>E-mail</span><span class="v">ryadsenhadjii@gmail.com</span>
+        <span>Téléphone</span><span class="v">07 67 79 04 08</span>
+        <span>LinkedIn</span><span class="v"><a href="https://www.linkedin.com/in/ryad-senhadji-77ab50255" target="_blank" rel="noopener">in/ryad-senhadji-77ab50255</a></span>
+        <span>GitHub</span><span class="v"><a href="https://github.com/dayr20" target="_blank" rel="noopener">dayr20</a></span>
+        <span>GitLab</span><span class="v"><a href="https://gitlab.com/Senry" target="_blank" rel="noopener">Senry</a></span>
+      </div>
+      <div class="btns">
+        <a class="btn default" href="mailto:ryadsenhadjii@gmail.com?subject=Alternance">Écrire un e-mail</a>
+        <a class="btn" href="../">Voir le CV interactif</a>
+      </div>
+    </div>
+  </section>
+
+  <footer><span>Ryad Senhadji · 2026</span></footer>
+</main>
+
+<script>
+/* ============ Icônes au pixel (16×16) ============ */
+const PIX = {
+  r:["################","#oooooooooooooo#","#ooo#######oooo#","#ooo##ooo##oooo#","#ooo##ooo##oooo#","#ooo#######oooo#","#ooo##o##oooooo#","#ooo##oo##ooooo#","#ooo##ooo##oooo#","#ooo##oooo##ooo#","#oooooooooooooo#","################"],
+  pot:["................","......####......","....########....","..############..","................",".##############.","##oooooooooooo##","##oooooooooooo##",".#oooooooooooo#.",".#oooooooooooo#.",".#oooooooooooo#.","..#oooooooooo#..","...##########...","................","................","................"],
+  book:["................","................",".####......####.","#oooo##..##oooo#","#oooooo##oooooo#","#o###oo##oo###o#","#oooooo##oooooo#","#o####o##o####o#","#oooooo##oooooo#","#o###oo##oo###o#","#oooooo##oooooo#","#oooooo##oooooo#","######o##o######","......####......","................","................"],
+  lens:["................","....#####.......","...#ooooo#......","..#oo####o#.....","..#ooooooo#.....","..#oo###oo#.....","..#ooooooo#.....","...#ooooo#......","....######......","........##......",".........##.....","..........##....","...........##...","............##..","................","................"],
+  bolt:[".........###....","........#oo#....",".......#oo#.....","......#oo#......",".....#oo#.......","....#oo######...","....#oooooo#....","....#####oo#....",".......#oo#.....","......#oo#......",".....#oo#.......","....#oo#........","...#o#..........","...##...........","................","................"],
+  phone:["...##########...","...#oooooooo#...","...#o######o#...","...#o######o#...","...#o#####oo#...","...#o####o#o#...","...#o#o#o##o#...","...#o##o###o#...","...#o######o#...","...#o######o#...","...#oooooooo#...","...#ooo##ooo#...","...#oooooooo#...","...##########...","................","................"],
+  handheld:["..############..","..#oooooooooo#..","..#o########o#..","..#o########o#..","..#o########o#..","..#o########o#..","..#o########o#..","..#oooooooooo#..","..#oo#ooooooo#..","..#o###oooo#o#..","..#oo#ooo#ooo#..","..#oooooooooo#..","..#oo##oo##oo#..","..#oooooooooo#..","..############..","................"],
+};
+function pix(name, size){
+  const map = PIX[name], w = Math.max(...map.map(r => r.length)), h = map.length;
+  let r = "";
+  map.forEach((row,y) => [...row].forEach((c,x) => {
+    if(c === "#") r += `<rect class="b" x="${x}" y="${y}" width="1" height="1"/>`;
+    else if(c === "o") r += `<rect class="w" x="${x}" y="${y}" width="1" height="1"/>`;
+  }));
+  return `<svg viewBox="0 0 ${w} ${h}" width="${size}" height="${Math.round(size*h/w)}" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`;
+}
+
+/* ============ Projets ============ */
+const GH = "https://github.com/dayr20/", GL = "https://gitlab.com/Senry/";
+const PROJETS = [
+  { id:"cookwithme", icon:"pot", name:"CookWithMe", ctx:"Projet de fin de M1", type:"Application web",
+    pitch:"Une appli communautaire de recettes. On y publie ses plats, on relève des défis, et un filtre anti-gaspi propose ce qu'on peut cuisiner avec ce qu'il reste dans le frigo.",
+    does:["Recettes avec photos et vidéos YouTube, recherche par titre ou catégorie.",
+          "Filtre anti-gaspi : on coche ses ingrédients, l'appli propose les recettes réalisables.",
+          "Défis culinaires avec soumissions et votes, badges attribués automatiquement.",
+          "Notes, commentaires, favoris et profil avec ses recettes et ses badges.",
+          "Liste de courses générée en PDF pour chaque recette.",
+          "Tableau de bord admin : statistiques, gestion des comptes, modération."],
+    tech:["Authentification JWT : jeton d'accès de 15 min et jeton de rafraîchissement de 7 jours, mots de passe hachés en BCrypt.",
+          "Limitation du nombre de requêtes avec Bucket4j, protections OWASP (injection, contrôle d'accès).",
+          "Tests : JUnit 5 et Mockito côté serveur, Vitest et Testing Library côté interface.",
+          "Docker Compose lance quatre conteneurs : PostgreSQL, l'API, l'interface et pgAdmin."],
+    stack:["Java 21","Spring Boot 3","Spring Security","JPA","React 18","TypeScript","Vite","Tailwind","Zustand","PostgreSQL 16","OpenPDF","Docker"],
+    links:[["Code sur GitHub", GH+"cookwithme"],["GitLab", GL+"cookwithme"]] },
+
+  { id:"mangazone", icon:"book", name:"MangaZone", ctx:"Projet de formation", type:"Application web",
+    pitch:"Une bibliothèque de mangas en ligne : on cherche une série, on l'ajoute à ses lectures, on la note, et on suit ses propres statistiques de lecteur.",
+    does:["Catalogue avec recherche avancée : titre, auteur, genre, statut, année, note minimale.",
+          "Import de séries depuis l'API publique de MangaDex.",
+          "Listes de lecture (à lire, en cours, terminé, abandonné) et suivi du dernier chapitre lu.",
+          "Avis de 1 à 5 étoiles et note moyenne des lecteurs.",
+          "Centre de notifications pour les nouveaux chapitres.",
+          "Statistiques personnelles en graphiques : genres préférés, notes données."],
+    tech:["Inscription avec code de vérification envoyé par e-mail, valable 30 minutes.",
+          "Trois niveaux de rôles, protection CSRF sur toutes les actions.",
+          "API REST paginée (/api/v1/mangas) documentée avec Swagger.",
+          "Installable sur téléphone (PWA), intégration continue sur GitLab, Docker en dev et en prod."],
+    stack:["PHP 8.2","Symfony 6.4","MySQL 8","Twig","Bootstrap 5","Chart.js","Swagger","Docker","GitLab CI"],
+    links:[["Code sur GitHub", GH+"bibliotheque"],["GitLab", GL+"bibliotheque"]] },
+
+  { id:"rag", icon:"lens", name:"API RAG", ctx:"Projet personnel, 2026", type:"API · IA générative",
+    pitch:"Une API qui répond à des questions en s'appuyant sur vos propres documents, et qui cite les passages qu'elle a utilisés.",
+    does:["Ingestion de fichiers texte et PDF.",
+          "Découpage des documents en fragments qui se chevauchent, pour ne pas couper une idée en deux.",
+          "Recherche des passages les plus proches de la question.",
+          "Réponse rédigée par un modèle de langage, avec ses sources."],
+    tech:["Vectorisation avec sentence-transformers, recherche par similarité cosinus calculée avec NumPy.",
+          "Le modèle de langage ne reçoit que le contexte trouvé, pour limiter les inventions.",
+          "Schémas de données validés avec Pydantic, tests avec Pytest, conteneurisé avec Docker."],
+    stack:["Python","FastAPI","Pydantic","NumPy","sentence-transformers","Docker","Pytest"],
+    links:[] , note:"Code disponible sur demande." },
+
+  { id:"energiesuivi", icon:"bolt", name:"ÉnergieSuivi", ctx:"Projet de M1", type:"Application web",
+    pitch:"Pour suivre sa consommation d'électricité, de gaz et d'eau au jour le jour, comparer les périodes et être prévenu quand on dépasse un seuil.",
+    does:["Saisie des relevés, historique et comparaison entre périodes.",
+          "Import de relevés depuis un fichier CSV.",
+          "Seuils d'alerte réglables par type d'énergie.",
+          "Tableau de bord avec courbes, camemberts et histogrammes."],
+    tech:["API REST découpée en contrôleurs, services et dépôts, avec des DTO séparés pour les requêtes et les réponses.",
+          "Authentification JWT et mots de passe hachés en BCrypt.",
+          "Image Docker en plusieurs étapes (JDK pour compiler, JRE pour exécuter), healthcheck sur la base.",
+          "nginx sert l'interface et redirige /api vers le serveur. 90 jours de données de démo générés au démarrage."],
+    stack:["Java 21","Spring Boot 3.3","Spring Security","JPA","PostgreSQL 16","React 18","Vite","Tailwind","Chart.js","Docker","nginx"],
+    links:[["Code sur GitLab", GL+"energiesuivi"]] },
+
+  { id:"duodingo", icon:"phone", name:"Duodingo", ctx:"Projet personnel", type:"Application mobile",
+    pitch:"Une appli mobile pour apprendre à coder par petites leçons quotidiennes, avec de l'XP, des séries et des vies pour donner envie de revenir.",
+    does:["Leçons par langage et par thème : JavaScript, Python, HTML et CSS.",
+          "Quatre types d'exercices : QCM, code à compléter, vrai ou faux, lignes à remettre dans l'ordre.",
+          "XP, niveaux, séries quotidiennes, vies et badges.",
+          "Parcours progressif : les sujets se débloquent au fil de l'XP gagnée."],
+    tech:["Application React Native avec Expo, navigation par onglets et par piles.",
+          "API Node.js et Express, données dans MongoDB avec Mongoose.",
+          "Authentification JWT et état global géré avec React Context."],
+    stack:["React Native","Expo","Node.js","Express","MongoDB","Mongoose","JWT"],
+    links:[["Code sur GitHub", GH+"Duodingo"]] },
+
+  { id:"pokedex", icon:"handheld", name:"Pokédex", ctx:"Projet personnel", type:"Application web",
+    pitch:"Un Pokédex complet des 1 025 Pokémon, avec leurs évolutions, leurs attaques et leurs cris, construit au-dessus de la PokéAPI.",
+    does:["Fiche détaillée : types, talents, statistiques, descriptions en français.",
+          "Chaînes d'évolution avec leurs conditions (niveau, objet, échange, moment de la journée…).",
+          "Attaques regroupées par méthode d'apprentissage, version shiny, cri joué à l'ouverture.",
+          "Recherche, filtres par type et par génération, tri, favoris."],
+    tech:["Pages rendues côté serveur par Spring Boot et Thymeleaf.",
+          "Chargement par lots de 40 au fil du défilement, avec IntersectionObserver.",
+          "Repli sur l'anglais quand une description française manque. Thème clair ou sombre mémorisé."],
+    stack:["Java 21","Spring Boot 3.4","Thymeleaf","JavaScript","PokéAPI","Docker"],
+    links:[["Code sur GitHub", GH+"PoKeDeX"]] },
+];
+
+document.getElementById("count").textContent = PROJETS.length + " éléments";
+document.querySelector(".facts div:nth-child(3) b").textContent = PROJETS.length;
+
+document.getElementById("index").innerHTML = PROJETS.map((p,i) => `
+  <tr class="r" data-href="#${p.id}"><td class="n">${String(i+1).padStart(2,"0")}</td><td><a href="#${p.id}"><b>${p.name}</b></a><br><span class="small">${p.type}</span></td><td class="hide-sm">${p.ctx}</td><td>${p.stack.slice(0,3).join(", ")}</td></tr>`).join("");
+document.querySelectorAll("tr.r").forEach(tr => tr.onclick = () => location.hash = tr.dataset.href);
+
+document.getElementById("fiches").innerHTML = PROJETS.map((p,i) => `
+  <section class="win" id="${p.id}">
+    <div class="tb"><span class="title">${String(i+1).padStart(2,"0")} — ${p.name}</span><button aria-label="Replier"></button></div>
+    <div class="body proj">
+      <div>
+        <div class="art"><div class="screen"><span>${pix(p.icon, 96)}</span></div></div>
+        <table class="meta">
+          <tr><td>Type</td><td>${p.type}</td></tr>
+          <tr><td>Contexte</td><td>${p.ctx}</td></tr>
+        </table>
+      </div>
+      <div>
+        <h2>${p.name}</h2>
+        <p class="lead" style="margin-top:10px">${p.pitch}</p>
+        <h3>Ce que fait l'appli</h3>
+        <ul class="dash">${p.does.map(x => `<li>${x}</li>`).join("")}</ul>
+        <h3>Sous le capot</h3>
+        <ul class="dash">${p.tech.map(x => `<li>${x}</li>`).join("")}</ul>
+        <h3>Stack</h3>
+        <div class="stack">${p.stack.map(s => `<span>${s}</span>`).join("")}</div>
+        ${p.links.length ? `<div class="btns">${p.links.map(([l,u],k) => `<a class="btn ${k===0?"default":""}" href="${u}" target="_blank" rel="noopener">${l}</a>`).join("")}</div>` : `<p class="small" style="margin-top:20px">${p.note}</p>`}
+      </div>
+    </div>
+  </section>`).join("");
+
+/* Icônes déclarées dans le HTML */
+document.querySelectorAll("[data-pix]").forEach(el => el.innerHTML = pix(el.dataset.pix, +el.dataset.size));
+
+/* Bouton de la barre de titre : replie la fenêtre */
+document.querySelectorAll(".win").forEach(w => {
+  const toggle = () => w.classList.toggle("shade");
+  w.querySelector(".tb button").onclick = toggle;
+  w.querySelector(".tb").ondblclick = e => { if(!e.target.closest("button")) toggle(); };
+});
+
+/* Surligne la rubrique visible dans la barre de menus */
+const links = [...document.querySelectorAll('.menubar a[href^="#"]')];
+const watch = links.map(a => document.querySelector(a.getAttribute("href")));
+const spy = () => {
+  const y = scrollY + innerHeight * .35;
+  let cur = null;
+  watch.forEach((s,i) => { if(s.offsetTop <= y) cur = i; });
+  links.forEach((a,i) => a.classList.toggle("on", i === cur));
+};
+addEventListener("scroll", spy, { passive:true }); spy();
+</script>
+</body>
+</html>

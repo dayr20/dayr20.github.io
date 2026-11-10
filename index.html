@@ -204,8 +204,9 @@ ul.dash li::before{content:"—";position:absolute;left:0}
       <button id="closeAll">Tout fermer</button>
     </div>
   </div>
-  <button data-open="parcours">Parcours</button>
-  <button data-open="projets">Projets</button>
+  <button data-open="parcours" class="hide-sm">Parcours</button>
+  <button data-href="portfolio/">Portfolio</button>
+  <button data-open="projets" class="hide-sm">Projets</button>
   <button data-open="competences" class="hide-sm">Compétences</button>
   <button data-open="contact">Contact</button>
   <span class="spacer"></span>
@@ -327,14 +328,15 @@ const APPS = {
   cv:          { title:"CV_Ryad_Senhadji.pdf", icon:"pdf", w:620, h:640 },
   terminal:    { title:"Terminal", icon:"term", w:600, h:360, cls:"term" },
   corbeille:   { title:"Corbeille", icon:"trash", w:340, h:200 },
+  portfolio:   { title:"Portfolio", icon:"folder", href:"portfolio/" },
 };
-const DESK = [["readme","Lisez-moi"],["parcours","Parcours"],["projets","Projets"],["competences","Compétences"],["contact","Contact"],["cv","CV.pdf"],["terminal","Terminal"],["corbeille","Corbeille"]];
+const DESK = [["readme","Lisez-moi"],["parcours","Parcours"],["projets","Projets"],["portfolio","Portfolio"],["competences","Compétences"],["contact","Contact"],["cv","CV.pdf"],["terminal","Terminal"],["corbeille","Corbeille"]];
 
 const RENDER = {
   readme:() => `<div class="letter">
     <h1>Bonjour,</h1>
     <p>Je m'appelle Ryad Senhadji. Je suis développeur full stack, en M2 à ENSITECH, et je cherche une <b>alternance de 12 mois, dès que possible</b>.</p>
-    <p>Ce site est mon CV. Il marche comme un vieux bureau d'ordinateur : ${isMobile() ? "touchez" : "double-cliquez sur"} les icônes pour ouvrir les dossiers, ou passez par les menus en haut. La version papier est dans <b>CV.pdf</b>.</p>
+    <p>Ce site est mon CV. Il marche comme un vieux bureau d'ordinateur : ${isMobile() ? "touchez" : "double-cliquez sur"} les icônes pour ouvrir les dossiers, ou passez par les menus en haut. La version papier est dans <b>CV.pdf</b>, et le détail de mes projets dans le <a href="portfolio/">portfolio</a>.</p>
     <hr class="dots">
     <ul class="dash">
       <li>Huit mois d'alternance au Croissant Doré : un site conçu, mis en ligne et maintenu seul</li>
@@ -359,7 +361,7 @@ const RENDER = {
       ).join("")}</tbody></table>`;
   },
 
-  projets:() => `<div class="grid">${PROJETS.map(p => `<button class="icon" data-proj="${p.id}">${pix("doc")}<span>${p.name}</span></button>`).join("")}</div>`,
+  projets:() => `<div class="grid">${PROJETS.map(p => `<button class="icon" data-proj="${p.id}">${pix("doc")}<span>${p.name}</span></button>`).join("")}</div><p class="small" style="padding:0 16px 16px">Fiches détaillées et liens vers le code : <a href="portfolio/">ouvrir le portfolio</a>.</p>`,
 
   competences:() => `<h2>Compétences</h2><table class="kv">${COMPETENCES.map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("")}</table>
     <p class="small" style="margin-top:14px">Dans chaque ligne, les technologies citées en premier sont celles que j'utilise le plus.</p>`,
@@ -508,7 +510,7 @@ const iconsEl = document.getElementById("icons");
 DESK.forEach(([id,label]) => {
   const b = document.createElement("button");
   b.className = "icon"; b.innerHTML = pix(APPS[id].icon) + `<span>${label}</span>`;
-  setupIcon(b, () => openWin(id), iconsEl);
+  setupIcon(b, () => APPS[id].href ? location.href = APPS[id].href : openWin(id), iconsEl);
   iconsEl.appendChild(b);
 });
 
@@ -518,6 +520,7 @@ document.getElementById("logoBtn").innerHTML = pix("r", 15);
 fileMenu.querySelector("button").onclick = () => fileMenu.classList.toggle("open");
 document.querySelectorAll(".menubar [data-open]").forEach(b => b.addEventListener("click", () => { fileMenu.classList.remove("open"); openWin(b.dataset.open); }));
 fileMenu.querySelector("a").addEventListener("click", () => fileMenu.classList.remove("open"));
+document.querySelectorAll(".menubar [data-href]").forEach(b => b.onclick = () => location.href = b.dataset.href);
 document.getElementById("closeAll").onclick = () => { Object.keys(wins).forEach(closeWin); fileMenu.classList.remove("open"); };
 document.addEventListener("pointerdown", e => {
   if(!e.target.closest(".icon")) document.querySelectorAll(".icon.sel").forEach(x => x.classList.remove("sel"));
